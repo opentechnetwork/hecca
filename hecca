@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>HECCA Brand Identity Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hybrid-gold': '#D4A64A',
+                        'deep-black': '#0F0F0F',
+                        'soft-white': '#F7F7F7',
+                        'boutique-pink': '#E84C7F',
+                        'electric-blue': '#3A6FB0',
+                        'sky-blue': '#A7C7F2',
+                        'leopard-tan': '#C8A97E',
+                        'stripe-beige': '#F5E9D2',
+                        'card-dark': '#1a1a1a',
+                        'card-darker': '#141414',
+                    },
+                    fontFamily: {
+                        'display': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        'body': ['"Montserrat"', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+        :root {
+            --gold: #D4A64A;
+            --deep-black: #0F0F0F;
+            --soft-white: #F7F7F7;
+            --pink: #E84C7F;
+            --blue: #3A6FB0;
+            --sky: #A7C7F2;
+            --tan: #C8A97E;
+            --beige: #F5E9D2;
+            --card: #1a1a1a;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--soft-white);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+        .font-body { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Gold divider */
+        .gold-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0;
+        }
+
+        /* Monogram glow */
+        .monogram-glow {
+            text-shadow: 0 0 40px rgba(212,166,74,0.6), 0 0 80px rgba(212,166,74,0.3), 0 0 120px rgba(212,166,74,0.15);
+        }
+
+        .monogram-ring {
+            box-shadow: 0 0 30px rgba(212,166,74,0.4), 0 0 60px rgba(212,166,74,0.2), inset 0 0 30px rgba(212,166,74,0.1);
+        }
+
+        .pink-glow { box-shadow: 0 0 30px rgba(232,76,127,0.5), 0 0 60px rgba(232,76,127,0.2), inset 0 0 20px rgba(232,76,127,0.1); }
+        .blue-glow { box-shadow: 0 0 30px rgba(58,111,176,0.5), 0 0 60px rgba(58,111,176,0.2), inset 0 0 20px rgba(58,111,176,0.1); }
+        .tan-glow { box-shadow: 0 0 30px rgba(200,169,126,0.5), 0 0 60px rgba(200,169,126,0.2), inset 0 0 20px rgba(200,169,126,0.1); }
+
+        /* Leopard pattern overlay */
+        .leopard-pattern {
+            position: relative;
+        }
+        .leopard-pattern::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background-image: radial-gradient(ellipse 8px 10px at 20% 30%, rgba(139,90,43,0.35) 0%, transparent 100%),
+                              radial-gradient(ellipse 6px 8px at 60% 20%, rgba(139,90,43,0.3) 0%, transparent 100%),
+                              radial-gradient(ellipse 9px 7px at 40% 70%, rgba(139,90,43,0.35) 0%, transparent 100%),
+                              radial-gradient(ellipse 7px 9px at 75% 55%, rgba(139,90,43,0.3) 0%, transparent 100%),
+                              radial-gradient(ellipse 5px 7px at 15% 65%, rgba(139,90,43,0.25) 0%, transparent 100%),
+                              radial-gradient(ellipse 8px 6px at 85% 80%, rgba(139,90,43,0.3) 0%, transparent 100%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Section fade in */
+        .section-header {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll indicator bounce */
+        @keyframes bounce-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .scroll-indicator { animation: bounce-down 2s ease-in-out infinite; }
+
+        /* Nav link active */
+        .nav-link { transition: color 0.3s ease; }
+        .nav-link.active { color: var(--gold) !important; }
+
+        /* Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--gold);
+            color: var(--deep-black);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Swatch hover */
+        .color-swatch {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(212,166,74,0.15);
+        }
+
+        /* Card hover */
+        .brand-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .brand-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212,166,74,0.1);
+        }
+
+        /* Sticky nav */
+        #sticky-nav-a1b2 {
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+        }
+        #sticky-nav-a1b2.visible {
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--deep-black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+        /* Gold bullet list */
+        .gold-bullet li::before {
+            content: '◆';
+            color: var(--gold);
+            margin-right: 0.75rem;
+            font-size: 8px;
+            vertical-align: middle;
+        }
+
+        .gold-dash li::before {
+            content: '—';
+            color: var(--gold);
+            margin-right: 0.75rem;
+        }
+
+        /* Shopify mockup */
+        .shopify-mockup { border: 1px solid rgba(212,166,74,0.2); border-radius: 8px; overflow: hidden; }
+
+        /* Print tag */
+        .hang-tag {
+            width: 120px;
+            height: 180px;
+            position: relative;
+        }
+        .hang-tag::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+    </style>
+</head>
+<body data-id="0">
+    <app-icon data-id="1" hidden data-icon="crown" data-palette="Dark"></app-icon>
+
+    <!-- TOAST NOTIFICATION -->
+    <div data-id="2" id="toast-hex-c3d4" class="toast-notification">Copied!</div>
+
+    <!-- ===== 1. HERO / COVER SECTION ===== -->
+    <section data-id="3" id="hero-k9m2" class="relative flex flex-col items-center justify-center min-h-screen px-4" style="background-color: var(--deep-black);">
+        <!-- Monogram -->
+        <div data-id="4" class="monogram-ring w-32 h-32 md:w-40 md:h-40 rounded-full border-2 flex items-center justify-center mb-8" style="border-color: var(--gold);">
+            <span data-id="5" class="font-display font-bold text-6xl md:text-7xl monogram-glow" style="color: var(--gold); letter-spacing: 0.05em;">H</span>
+        </div>
+        <!-- Brand Name -->
+        <h1 data-id="6" id="hero-title-x7z1" class="font-display font-bold text-soft-white text-center" style="font-size: clamp(48px, 10vw, 80px); letter-spacing: 0.3em; color: var(--gold); line-height: 1.1;">HECCA</h1>
+        <!-- Subtitle -->
+        <p data-id="7" id="hero-sub-p4q8" class="font-body mt-4 text-center uppercase" style="font-size: 12px; letter-spacing: 0.5em; color: var(--soft-white); opacity: 0.7;">Brand Identity Guide</p>
+        <!-- Tagline -->
+        <p data-id="8" id="hero-tagline-r2s5" class="font-display italic mt-6 text-center" style="font-size: clamp(18px, 3vw, 22px); color: var(--gold);">Where Culture Meets Couture</p>
+        <!-- Scroll indicator -->
+        <div data-id="9" class="absolute bottom-10 scroll-indicator" style="color: var(--gold);">
+            <i data-id="10" data-lucide="chevron-down" class="w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- ===== 2. STICKY NAV BAR ===== -->
+    <nav data-id="11" id="sticky-nav-a1b2" class="fixed top-0 left-0 w-full z-50 hidden" style="background-color: var(--deep-black); border-bottom: 1px solid var(--gold);">
+        <!-- Desktop Nav -->
+        <div data-id="12" class="hidden md:flex items-center justify-center gap-4 lg:gap-6 py-3 px-4 overflow-x-auto">
+            <a data-id="13" href="#brand-essence-s1" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Brand Essence</a>
+            <a data-id="14" href="#personality-s2" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Personality</a>
+            <a data-id="15" href="#logo-system-s3" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Logo System</a>
+            <a data-id="16" href="#color-palette-s4" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Color Palette</a>
+            <a data-id="17" href="#typography-s5" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Typography</a>
+            <a data-id="18" href="#imagery-s6" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Imagery</a>
+            <a data-id="19" href="#brand-voice-s7" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Brand Voice</a>
+            <a data-id="20" href="#shopify-s8" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Shopify</a>
+            <a data-id="21" href="#collections-s9" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Collections</a>
+            <a data-id="22" href="#texture-s10" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Texture &amp; Accent</a>
+            <a data-id="23" href="#visual-s11" class="nav-link font-body font-semibold whitespace-nowrap" style="font-size: 10px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none; text-transform: uppercase;">Visual Examples</a>
+        </div>
+        <!-- Mobile Nav Button -->
+        <div data-id="24" class="flex md:hidden items-center justify-between py-3 px-4">
+            <span data-id="25" class="font-display font-bold text-lg" style="color: var(--gold); letter-spacing: 0.2em;">HECCA</span>
+            <button data-id="26" id="mobile-menu-btn-n8k3" class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" style="color: var(--gold);">
+                <i data-id="27" data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <nav data-id="28" id="mobile-menu-m7j4" class="hidden fixed inset-0 z-[60] flex flex-col p-6 overflow-y-auto" style="background-color: var(--deep-black);">
+        <div data-id="29" class="flex items-center justify-between mb-8">
+            <span data-id="30" class="font-display font-bold text-xl" style="color: var(--gold); letter-spacing: 0.2em;">HECCA</span>
+            <button data-id="31" id="mobile-menu-close-b5v6" class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" style="color: var(--gold);">
+                <i data-id="32" data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div data-id="33" class="flex flex-col gap-5">
+            <a data-id="34" href="#brand-essence-s1" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">01 — Brand Essence</a>
+            <a data-id="35" href="#personality-s2" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">02 — Personality</a>
+            <a data-id="36" href="#logo-system-s3" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">03 — Logo System</a>
+            <a data-id="37" href="#color-palette-s4" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">04 — Color Palette</a>
+            <a data-id="38" href="#typography-s5" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">05 — Typography</a>
+            <a data-id="39" href="#imagery-s6" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">06 — Imagery</a>
+            <a data-id="40" href="#brand-voice-s7" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">07 — Brand Voice</a>
+            <a data-id="41" href="#shopify-s8" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">08 — Shopify</a>
+            <a data-id="42" href="#collections-s9" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">09 — Collections</a>
+            <a data-id="43" href="#texture-s10" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">10 — Texture &amp; Accent</a>
+            <a data-id="44" href="#visual-s11" class="mobile-nav-link font-body font-semibold uppercase" style="font-size: 12px; letter-spacing: 0.15em; color: var(--soft-white); text-decoration: none;">11 — Visual Examples</a>
+        </div>
+    </nav>
+
+    <main data-id="45">
+
+    <!-- ===== DIVIDER ===== -->
+    <hr data-id="46" class="gold-divider" />
+
+    <!-- ===== 3. BRAND ESSENCE ===== -->
+    <section data-id="47" id="brand-essence-s1" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="48" id="essence-heading-t3u9" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">01 — BRAND ESSENCE</h2>
+
+        <div data-id="49" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <!-- Mission -->
+            <div data-id="50" id="mission-card-w2e7" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h3 data-id="51" class="font-display font-bold text-lg mb-4" style="color: var(--gold);">Mission</h3>
+                <p data-id="52" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">To celebrate individuality, culture, and luxury through fearless fashion.</p>
+            </div>
+            <!-- Vision -->
+            <div data-id="53" id="vision-card-y4i1" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h3 data-id="54" class="font-display font-bold text-lg mb-4" style="color: var(--gold);">Vision</h3>
+                <p data-id="55" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">To be a globally recognized hybrid luxury brand that bridges street culture and high fashion.</p>
+            </div>
+            <!-- Core Values -->
+            <div data-id="56" id="values-card-z6o3" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h3 data-id="57" class="font-display font-bold text-lg mb-4" style="color: var(--gold);">Core Values</h3>
+                <ul data-id="58" class="gold-bullet list-none space-y-2">
+                    <li data-id="59" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Authenticity</li>
+                    <li data-id="60" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Boldness</li>
+                    <li data-id="61" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Artistry</li>
+                    <li data-id="62" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Inclusivity</li>
+                    <li data-id="63" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Excellence</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Brand Archetype -->
+        <div data-id="64" id="archetype-box-a8s5" class="p-8 rounded-lg" style="border: 1px solid var(--gold); background: rgba(212,166,74,0.04);">
+            <p data-id="65" class="font-body uppercase text-xs font-semibold mb-3" style="color: var(--gold); letter-spacing: 0.15em;">Brand Archetype</p>
+            <p data-id="66" class="font-display text-xl md:text-2xl italic" style="color: var(--soft-white);">The Creator / The Outlaw — <span data-id="67" style="opacity: 0.75;">visionary, expressive, rebellious with purpose</span></p>
+        </div>
+    </section>
+
+    <hr data-id="68" class="gold-divider" />
+
+    <!-- ===== 4. BRAND PERSONALITY ===== -->
+    <section data-id="69" id="personality-s2" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="70" id="personality-heading-d1f6" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">02 — BRAND PERSONALITY</h2>
+
+        <div data-id="71" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Tone -->
+            <div data-id="72" id="tone-card-g3h8" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <div data-id="73" class="flex items-center gap-3 mb-4">
+                    <i data-id="74" data-lucide="volume-2" class="w-5 h-5" style="color: var(--gold);"></i>
+                    <h3 data-id="75" class="font-display font-bold text-lg" style="color: var(--gold);">Tone</h3>
+                </div>
+                <p data-id="76" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Confident, luxurious, culturally aware, bold</p>
+            </div>
+            <!-- Voice -->
+            <div data-id="77" id="voice-card-j5k2" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <div data-id="78" class="flex items-center gap-3 mb-4">
+                    <i data-id="79" data-lucide="mic" class="w-5 h-5" style="color: var(--gold);"></i>
+                    <h3 data-id="80" class="font-display font-bold text-lg" style="color: var(--gold);">Voice</h3>
+                </div>
+                <p data-id="81" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Aspirational yet raw, poetic but direct</p>
+            </div>
+            <!-- Feel -->
+            <div data-id="82" id="feel-card-l7m4" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <div data-id="83" class="flex items-center gap-3 mb-4">
+                    <i data-id="84" data-lucide="sparkles" class="w-5 h-5" style="color: var(--gold);"></i>
+                    <h3 data-id="85" class="font-display font-bold text-lg" style="color: var(--gold);">Feel</h3>
+                </div>
+                <p data-id="86" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">High-end boutique meets urban energy</p>
+            </div>
+            <!-- Character -->
+            <div data-id="87" id="character-card-n9p6" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <div data-id="88" class="flex items-center gap-3 mb-4">
+                    <i data-id="89" data-lucide="flame" class="w-5 h-5" style="color: var(--gold);"></i>
+                    <h3 data-id="90" class="font-display font-bold text-lg" style="color: var(--gold);">Character</h3>
+                </div>
+                <p data-id="91" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Magnetic, unapologetic, trend-forward, story-driven</p>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="92" class="gold-divider" />
+
+    <!-- ===== 5. LOGO SYSTEM ===== -->
+    <section data-id="93" id="logo-system-s3" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="94" id="logo-heading-q1r8" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">03 — LOGO SYSTEM</h2>
+
+        <div data-id="95" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <!-- A. Dual Aura Crest -->
+            <div data-id="96" id="logo-primary-s3t0" class="brand-card p-8 rounded-lg flex flex-col items-center" style="background: var(--card);">
+                <div data-id="97" class="monogram-ring w-28 h-28 rounded-full border-2 flex items-center justify-center mb-6" style="border-color: var(--gold);">
+                    <div data-id="98" class="w-24 h-24 rounded-full border flex items-center justify-center" style="border-color: rgba(212,166,74,0.4);">
+                        <span data-id="99" class="font-display font-bold text-4xl monogram-glow" style="color: var(--gold);">H</span>
+                    </div>
+                </div>
+                <h4 data-id="100" class="font-display font-bold text-base mb-1" style="color: var(--gold);">DUAL AURA CREST</h4>
+                <p data-id="101" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--soft-white); letter-spacing: 0.1em; opacity: 0.6;">Primary</p>
+                <p data-id="102" class="font-body text-xs text-center" style="color: var(--soft-white); opacity: 0.7;">All official materials</p>
+            </div>
+            <!-- B. Gold + Pink -->
+            <div data-id="103" id="logo-pink-u5v2" class="brand-card p-8 rounded-lg flex flex-col items-center" style="background: var(--card);">
+                <div data-id="104" class="pink-glow w-28 h-28 rounded-full border-2 flex items-center justify-center mb-6" style="border-color: var(--pink);">
+                    <div data-id="105" class="w-24 h-24 rounded-full border flex items-center justify-center" style="border-color: rgba(232,76,127,0.4);">
+                        <span data-id="106" class="font-display font-bold text-4xl" style="color: var(--gold); text-shadow: 0 0 30px rgba(232,76,127,0.5);">H</span>
+                    </div>
+                </div>
+                <h4 data-id="107" class="font-display font-bold text-base mb-1" style="color: var(--pink);">GOLD + PINK</h4>
+                <p data-id="108" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--soft-white); letter-spacing: 0.1em; opacity: 0.6;">Femme Collection</p>
+                <p data-id="109" class="font-body text-xs text-center" style="color: var(--soft-white); opacity: 0.7;">Campaign Materials</p>
+            </div>
+            <!-- C. Gold + Blue -->
+            <div data-id="110" id="logo-blue-w7x4" class="brand-card p-8 rounded-lg flex flex-col items-center" style="background: var(--card);">
+                <div data-id="111" class="blue-glow w-28 h-28 rounded-full border-2 flex items-center justify-center mb-6" style="border-color: var(--blue);">
+                    <div data-id="112" class="w-24 h-24 rounded-full border flex items-center justify-center" style="border-color: rgba(58,111,176,0.4);">
+                        <span data-id="113" class="font-display font-bold text-4xl" style="color: var(--gold); text-shadow: 0 0 30px rgba(58,111,176,0.5);">H</span>
+                    </div>
+                </div>
+                <h4 data-id="114" class="font-display font-bold text-base mb-1" style="color: var(--blue);">GOLD + BLUE</h4>
+                <p data-id="115" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--soft-white); letter-spacing: 0.1em; opacity: 0.6;">Homme Collection</p>
+                <p data-id="116" class="font-body text-xs text-center" style="color: var(--soft-white); opacity: 0.7;">Digital Content</p>
+            </div>
+            <!-- D. Gold + Leopard -->
+            <div data-id="117" id="logo-leopard-y9z6" class="brand-card p-8 rounded-lg flex flex-col items-center" style="background: var(--card);">
+                <div data-id="118" class="tan-glow leopard-pattern w-28 h-28 rounded-full border-2 flex items-center justify-center mb-6" style="border-color: var(--tan);">
+                    <div data-id="119" class="w-24 h-24 rounded-full border flex items-center justify-center" style="border-color: rgba(200,169,126,0.4); position: relative; z-index: 1;">
+                        <span data-id="120" class="font-display font-bold text-4xl" style="color: var(--gold); text-shadow: 0 0 30px rgba(200,169,126,0.5);">H</span>
+                    </div>
+                </div>
+                <h4 data-id="121" class="font-display font-bold text-base mb-1" style="color: var(--tan);">GOLD + LEOPARD</h4>
+                <p data-id="122" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--soft-white); letter-spacing: 0.1em; opacity: 0.6;">Wild Collection</p>
+                <p data-id="123" class="font-body text-xs text-center" style="color: var(--soft-white); opacity: 0.7;">Editorial Lookbooks</p>
+            </div>
+        </div>
+
+        <!-- Logo Usage Rules -->
+        <div data-id="124" id="logo-rules-a1b8" class="p-8 rounded-lg" style="border: 1px solid var(--gold); background: rgba(212,166,74,0.04);">
+            <h4 data-id="125" class="font-display font-bold text-lg mb-6" style="color: var(--gold);">Logo Usage Rules</h4>
+            <ul data-id="126" class="gold-bullet list-none space-y-3">
+                <li data-id="127" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;"><strong data-id="128">Minimum Size:</strong> 24px height for digital, 0.5in for print</li>
+                <li data-id="129" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;"><strong data-id="130">Clear Space:</strong> Maintain 1x the height of the "H" on all sides</li>
+                <li data-id="131" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;"><strong data-id="132">Prohibited:</strong> Do not stretch, rotate, recolor outside brand palette, or add drop shadows</li>
+                <li data-id="133" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;"><strong data-id="134">Backgrounds:</strong> Use only on Deep Black, Soft White, or approved photography</li>
+            </ul>
+        </div>
+    </section>
+
+    <hr data-id="135" class="gold-divider" />
+
+    <!-- ===== 6. COLOR PALETTE ===== -->
+    <section data-id="136" id="color-palette-s4" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="137" id="color-heading-c3d0" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">04 — COMPLETE COLOR PALETTE</h2>
+
+        <div data-id="138" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+            <!-- Hybrid Gold -->
+            <div data-id="139" class="color-swatch flex flex-col items-center" data-hex="#D4A64A">
+                <div data-id="140" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #D4A64A;"></div>
+                <p data-id="141" class="font-body font-bold text-sm" style="color: var(--gold);">Hybrid Gold</p>
+                <p data-id="142" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#D4A64A</p>
+                <p data-id="143" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(212,166,74)</p>
+                <p data-id="144" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Primary · Logo · Luxury Accents</p>
+            </div>
+            <!-- Deep Black -->
+            <div data-id="145" class="color-swatch flex flex-col items-center" data-hex="#0F0F0F">
+                <div data-id="146" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #0F0F0F; border: 1px solid rgba(247,247,247,0.2);"></div>
+                <p data-id="147" class="font-body font-bold text-sm" style="color: var(--soft-white);">Deep Black</p>
+                <p data-id="148" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#0F0F0F</p>
+                <p data-id="149" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(15,15,15)</p>
+                <p data-id="150" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Backgrounds · Text · Contrast</p>
+            </div>
+            <!-- Soft White -->
+            <div data-id="151" class="color-swatch flex flex-col items-center" data-hex="#F7F7F7">
+                <div data-id="152" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #F7F7F7; border: 1px solid rgba(212,166,74,0.3);"></div>
+                <p data-id="153" class="font-body font-bold text-sm" style="color: var(--soft-white);">Soft White</p>
+                <p data-id="154" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#F7F7F7</p>
+                <p data-id="155" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(247,247,247)</p>
+                <p data-id="156" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Clean Backgrounds · Negative Space</p>
+            </div>
+            <!-- Boutique Pink -->
+            <div data-id="157" class="color-swatch flex flex-col items-center" data-hex="#E84C7F">
+                <div data-id="158" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #E84C7F;"></div>
+                <p data-id="159" class="font-body font-bold text-sm" style="color: var(--pink);">Boutique Pink</p>
+                <p data-id="160" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#E84C7F</p>
+                <p data-id="161" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(232,76,127)</p>
+                <p data-id="162" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Femme · Campaign Highlights</p>
+            </div>
+            <!-- Electric Blue -->
+            <div data-id="163" class="color-swatch flex flex-col items-center" data-hex="#3A6FB0">
+                <div data-id="164" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #3A6FB0;"></div>
+                <p data-id="165" class="font-body font-bold text-sm" style="color: var(--blue);">Electric Blue</p>
+                <p data-id="166" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#3A6FB0</p>
+                <p data-id="167" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(58,111,176)</p>
+                <p data-id="168" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Homme · Digital Accents</p>
+            </div>
+            <!-- Sky Blue -->
+            <div data-id="169" class="color-swatch flex flex-col items-center" data-hex="#A7C7F2">
+                <div data-id="170" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #A7C7F2;"></div>
+                <p data-id="171" class="font-body font-bold text-sm" style="color: var(--sky);">Sky Blue</p>
+                <p data-id="172" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#A7C7F2</p>
+                <p data-id="173" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(167,199,242)</p>
+                <p data-id="174" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Soft Accents · Secondary Graphics</p>
+            </div>
+            <!-- Leopard Tan -->
+            <div data-id="175" class="color-swatch flex flex-col items-center" data-hex="#C8A97E">
+                <div data-id="176" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #C8A97E;"></div>
+                <p data-id="177" class="font-body font-bold text-sm" style="color: var(--tan);">Leopard Tan</p>
+                <p data-id="178" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#C8A97E</p>
+                <p data-id="179" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(200,169,126)</p>
+                <p data-id="180" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Animal Print · Warm Tones</p>
+            </div>
+            <!-- Stripe Beige -->
+            <div data-id="181" class="color-swatch flex flex-col items-center" data-hex="#F5E9D2">
+                <div data-id="182" class="w-full rounded-lg mb-3" style="height: 140px; background-color: #F5E9D2;"></div>
+                <p data-id="183" class="font-body font-bold text-sm" style="color: var(--beige);">Stripe Beige</p>
+                <p data-id="184" class="font-body text-xs mt-1" style="color: var(--soft-white); opacity: 0.7;">#F5E9D2</p>
+                <p data-id="185" class="font-body text-xs mt-0.5" style="color: var(--soft-white); opacity: 0.5;">RGB(245,233,210)</p>
+                <p data-id="186" class="font-body text-xs mt-1 text-center" style="color: var(--soft-white); opacity: 0.6;">Neutral Base · Stripe Patterns · Packaging</p>
+            </div>
+        </div>
+
+        <!-- Color Pairing Rules -->
+        <div data-id="187" id="color-pairs-e5f2" class="overflow-x-auto">
+            <h4 data-id="188" class="font-display font-bold text-lg mb-6" style="color: var(--gold);">Color Pairing Rules</h4>
+            <table data-id="189" class="w-full font-body text-sm" style="border-collapse: collapse;">
+                <thead data-id="190">
+                    <tr data-id="191" style="border-bottom: 1px solid var(--gold);">
+                        <th data-id="192" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Pairing</th>
+                        <th data-id="193" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Colors</th>
+                        <th data-id="194" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Usage</th>
+                    </tr>
+                </thead>
+                <tbody data-id="195">
+                    <tr data-id="196" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="197" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Power Pair</td>
+                        <td data-id="198" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">
+                            <span data-id="199" class="inline-block w-3 h-3 rounded-full mr-1" style="background: #D4A64A;"></span>Gold + <span data-id="200" class="inline-block w-3 h-3 rounded-full mr-1 ml-1" style="background: #0F0F0F; border: 1px solid rgba(255,255,255,0.3);"></span>Black
+                        </td>
+                        <td data-id="201" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.7;">Core branding, logo, headlines</td>
+                    </tr>
+                    <tr data-id="202" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="203" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Feminine Pair</td>
+                        <td data-id="204" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">
+                            <span data-id="205" class="inline-block w-3 h-3 rounded-full mr-1" style="background: #E84C7F;"></span>Pink + <span data-id="206" class="inline-block w-3 h-3 rounded-full mr-1 ml-1" style="background: #D4A64A;"></span>Gold
+                        </td>
+                        <td data-id="207" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.7;">HECCA Femme, campaigns</td>
+                    </tr>
+                    <tr data-id="208" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="209" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Urban Pair</td>
+                        <td data-id="210" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">
+                            <span data-id="211" class="inline-block w-3 h-3 rounded-full mr-1" style="background: #3A6FB0;"></span>Blue + <span data-id="212" class="inline-block w-3 h-3 rounded-full mr-1 ml-1" style="background: #0F0F0F; border: 1px solid rgba(255,255,255,0.3);"></span>Black
+                        </td>
+                        <td data-id="213" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.7;">HECCA Homme, digital</td>
+                    </tr>
+                    <tr data-id="214" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="215" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Natural Pair</td>
+                        <td data-id="216" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">
+                            <span data-id="217" class="inline-block w-3 h-3 rounded-full mr-1" style="background: #C8A97E;"></span>Tan + <span data-id="218" class="inline-block w-3 h-3 rounded-full mr-1 ml-1" style="background: #F5E9D2;"></span>Beige
+                        </td>
+                        <td data-id="219" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.7;">HECCA Wild, packaging</td>
+                    </tr>
+                    <tr data-id="220">
+                        <td data-id="221" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Accent Combo</td>
+                        <td data-id="222" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">
+                            <span data-id="223" class="inline-block w-3 h-3 rounded-full mr-1" style="background: #A7C7F2;"></span>Sky + <span data-id="224" class="inline-block w-3 h-3 rounded-full mr-1 ml-1" style="background: #D4A64A;"></span>Gold
+                        </td>
+                        <td data-id="225" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.7;">HECCA Aura, limited editions</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <hr data-id="226" class="gold-divider" />
+
+    <!-- ===== 7. TYPOGRAPHY ===== -->
+    <section data-id="227" id="typography-s5" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="228" id="type-heading-g7h4" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">05 — TYPOGRAPHY</h2>
+
+        <div data-id="229" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <!-- Cormorant Garamond -->
+            <div data-id="230" id="type-display-i9j6" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <p data-id="231" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--gold); letter-spacing: 0.15em;">Display · Headlines</p>
+                <h3 data-id="232" class="font-display font-bold text-3xl mb-4" style="color: var(--soft-white);">Cormorant Garamond</h3>
+                <p data-id="233" class="font-display text-4xl font-bold mb-4" style="color: var(--gold); letter-spacing: 0.2em;">HECCA</p>
+                <p data-id="234" class="font-display text-lg" style="color: var(--soft-white); opacity: 0.6;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br data-id="235" />abcdefghijklmnopqrstuvwxyz<br data-id="236" />0123456789</p>
+            </div>
+            <!-- Montserrat -->
+            <div data-id="237" id="type-body-k1l8" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <p data-id="238" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--gold); letter-spacing: 0.15em;">Body · UI</p>
+                <h3 data-id="239" class="font-body font-bold text-2xl mb-4" style="color: var(--soft-white);">Montserrat</h3>
+                <p data-id="240" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.75;">HECCA merges heritage craftsmanship with contemporary streetwear sensibility. Every thread tells a story of cultural fusion and uncompromising quality.</p>
+            </div>
+            <!-- Pull Quotes -->
+            <div data-id="241" id="type-quotes-m3n0" class="brand-card p-8 rounded-lg" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <p data-id="242" class="font-body text-xs uppercase font-semibold mb-2" style="color: var(--gold); letter-spacing: 0.15em;">Pull Quotes · Campaign Copy</p>
+                <h3 data-id="243" class="font-display italic text-2xl mb-4" style="color: var(--soft-white);">Cormorant Garamond Italic</h3>
+                <p data-id="244" class="font-display italic text-xl leading-relaxed" style="color: var(--gold);">"Where culture meets couture, identity becomes art."</p>
+            </div>
+        </div>
+
+        <!-- Type Hierarchy Table -->
+        <div data-id="245" class="overflow-x-auto mb-12">
+            <h4 data-id="246" class="font-display font-bold text-lg mb-6" style="color: var(--gold);">Type Hierarchy</h4>
+            <table data-id="247" class="w-full font-body text-sm" style="border-collapse: collapse;">
+                <thead data-id="248">
+                    <tr data-id="249" style="border-bottom: 1px solid var(--gold);">
+                        <th data-id="250" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Element</th>
+                        <th data-id="251" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Font</th>
+                        <th data-id="252" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Weight</th>
+                        <th data-id="253" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Size</th>
+                        <th data-id="254" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Spacing</th>
+                    </tr>
+                </thead>
+                <tbody data-id="255">
+                    <tr data-id="256" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="257" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">H1 — Hero</td>
+                        <td data-id="258" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Cormorant Garamond</td>
+                        <td data-id="259" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">700</td>
+                        <td data-id="260" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">64–80px</td>
+                        <td data-id="261" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">0.3em</td>
+                    </tr>
+                    <tr data-id="262" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="263" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">H2 — Section</td>
+                        <td data-id="264" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Cormorant Garamond</td>
+                        <td data-id="265" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">700</td>
+                        <td data-id="266" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">32–40px</td>
+                        <td data-id="267" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">0.1em</td>
+                    </tr>
+                    <tr data-id="268" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="269" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Body</td>
+                        <td data-id="270" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Montserrat</td>
+                        <td data-id="271" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">400</td>
+                        <td data-id="272" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">14–16px</td>
+                        <td data-id="273" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Normal</td>
+                    </tr>
+                    <tr data-id="274" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="275" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Pull Quote</td>
+                        <td data-id="276" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Cormorant Garamond Italic</td>
+                        <td data-id="277" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">400</td>
+                        <td data-id="278" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">22–28px</td>
+                        <td data-id="279" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Normal</td>
+                    </tr>
+                    <tr data-id="280">
+                        <td data-id="281" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Label</td>
+                        <td data-id="282" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Montserrat</td>
+                        <td data-id="283" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">600</td>
+                        <td data-id="284" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">10–12px</td>
+                        <td data-id="285" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">0.15em</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Typography Rules -->
+        <ul data-id="286" class="gold-bullet list-none space-y-3">
+            <li data-id="287" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Never use more than two font families in a single composition</li>
+            <li data-id="288" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Always use uppercase for labels, navigation, and CTAs</li>
+            <li data-id="289" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Maintain generous line-height (1.5–1.6) for body copy</li>
+            <li data-id="290" class="font-body text-sm" style="color: var(--soft-white); opacity: 0.85;">Letter-spacing on headlines creates the luxury feel — never reduce below 0.05em</li>
+        </ul>
+    </section>
+
+    <hr data-id="291" class="gold-divider" />
+
+    <!-- ===== 8. IMAGERY STYLE ===== -->
+    <section data-id="292" id="imagery-s6" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="293" id="imagery-heading-o5p2" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">06 — IMAGERY STYLE</h2>
+
+        <div data-id="294" class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <!-- Photography Direction -->
+            <div data-id="295" id="photo-dir-q7r4">
+                <h3 data-id="296" class="font-display font-bold text-xl mb-6" style="color: var(--gold);">Photography Direction</h3>
+                <ul data-id="297" class="gold-dash list-none space-y-4">
+                    <li data-id="298" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Dramatic, high-contrast lighting with deep shadows</li>
+                    <li data-id="299" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Warm undertones — never cold or clinical</li>
+                    <li data-id="300" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Models should exude confidence, attitude, and cultural pride</li>
+                    <li data-id="301" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Urban and architectural backdrops preferred over nature</li>
+                    <li data-id="302" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Textures should be visible — fabric grain, leather, hardware detail</li>
+                    <li data-id="303" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Cinematic aspect ratios (2.39:1) for campaign hero images</li>
+                </ul>
+            </div>
+            <!-- Art Direction -->
+            <div data-id="304" id="art-dir-s9t6">
+                <h3 data-id="305" class="font-display font-bold text-xl mb-6" style="color: var(--gold);">Art Direction</h3>
+                <ul data-id="306" class="gold-dash list-none space-y-4">
+                    <li data-id="307" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Asymmetric compositions with intentional tension</li>
+                    <li data-id="308" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Bold typography overlays on photography</li>
+                    <li data-id="309" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Gold foil and metallic treatments for premium feel</li>
+                    <li data-id="310" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Layered compositions — combine photography, texture, and type</li>
+                    <li data-id="311" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Minimalist product shots on solid black backgrounds</li>
+                    <li data-id="312" class="font-body text-sm leading-relaxed" style="color: var(--soft-white); opacity: 0.85;">Duotone treatments using brand color pairs</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pull Quote -->
+        <div data-id="313" id="imagery-quote-u1v8" class="p-8 rounded-lg text-center" style="border: 1px solid var(--gold); background: rgba(212,166,74,0.04);">
+            <p data-id="314" class="font-display italic text-xl md:text-2xl" style="color: var(--gold);">"Negative space is luxury — do not overcrowd compositions."</p>
+        </div>
+    </section>
+
+    <hr data-id="315" class="gold-divider" />
+
+    <!-- ===== 9. BRAND VOICE ===== -->
+    <section data-id="316" id="brand-voice-s7" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="317" id="voice-heading-w3x0" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">07 — BRAND VOICE</h2>
+
+        <!-- Voice Pillar Cards -->
+        <div data-id="318" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div data-id="319" id="pillar-conf-y5z2" class="brand-card p-6 rounded-lg text-center" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h4 data-id="320" class="font-body font-bold text-xs uppercase mb-4" style="color: var(--gold); letter-spacing: 0.15em;">Confident</h4>
+                <p data-id="321" class="font-display italic text-lg" style="color: var(--soft-white);">"Wear the story only you can tell."</p>
+            </div>
+            <div data-id="322" id="pillar-lux-a7b4" class="brand-card p-6 rounded-lg text-center" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h4 data-id="323" class="font-body font-bold text-xs uppercase mb-4" style="color: var(--gold); letter-spacing: 0.15em;">Luxurious</h4>
+                <p data-id="324" class="font-display italic text-lg" style="color: var(--soft-white);">"Crafted for the extraordinary."</p>
+            </div>
+            <div data-id="325" id="pillar-cult-c9d6" class="brand-card p-6 rounded-lg text-center" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h4 data-id="326" class="font-body font-bold text-xs uppercase mb-4" style="color: var(--gold); letter-spacing: 0.15em;">Cultural</h4>
+                <p data-id="327" class="font-display italic text-lg" style="color: var(--soft-white);">"Rooted in heritage. Dressed in vision."</p>
+            </div>
+            <div data-id="328" id="pillar-bold-e1f8" class="brand-card p-6 rounded-lg text-center" style="background: var(--card); border-top: 2px solid var(--gold);">
+                <h4 data-id="329" class="font-body font-bold text-xs uppercase mb-4" style="color: var(--gold); letter-spacing: 0.15em;">Bold</h4>
+                <p data-id="330" class="font-display italic text-lg" style="color: var(--soft-white);">"This is not fashion. This is identity."</p>
+            </div>
+        </div>
+
+        <!-- Tone by Channel -->
+        <div data-id="331" class="overflow-x-auto mb-12">
+            <h4 data-id="332" class="font-display font-bold text-lg mb-6" style="color: var(--gold);">Tone by Channel</h4>
+            <table data-id="333" class="w-full font-body text-sm" style="border-collapse: collapse;">
+                <thead data-id="334">
+                    <tr data-id="335" style="border-bottom: 1px solid var(--gold);">
+                        <th data-id="336" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Channel</th>
+                        <th data-id="337" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Tone</th>
+                        <th data-id="338" class="text-left py-3 px-4 font-semibold uppercase" style="color: var(--gold); font-size: 10px; letter-spacing: 0.1em;">Example</th>
+                    </tr>
+                </thead>
+                <tbody data-id="339">
+                    <tr data-id="340" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="341" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Website</td>
+                        <td data-id="342" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Elevated, editorial</td>
+                        <td data-id="343" class="py-3 px-4 font-display italic" style="color: var(--soft-white); opacity: 0.7;">"Discover the new chapter."</td>
+                    </tr>
+                    <tr data-id="344" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="345" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Social Media</td>
+                        <td data-id="346" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Raw, direct, magnetic</td>
+                        <td data-id="347" class="py-3 px-4 font-display italic" style="color: var(--soft-white); opacity: 0.7;">"Not for everyone. For the ones."</td>
+                    </tr>
+                    <tr data-id="348" style="border-bottom: 1px solid rgba(212,166,74,0.15);">
+                        <td data-id="349" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Email</td>
+                        <td data-id="350" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Warm, exclusive</td>
+                        <td data-id="351" class="py-3 px-4 font-display italic" style="color: var(--soft-white); opacity: 0.7;">"You're invited before the world."</td>
+                    </tr>
+                    <tr data-id="352">
+                        <td data-id="353" class="py-3 px-4 font-semibold" style="color: var(--soft-white);">Product Descriptions</td>
+                        <td data-id="354" class="py-3 px-4" style="color: var(--soft-white); opacity: 0.8;">Sensory, detailed</td>
+                        <td data-id="355" class="py-3 px-4 font-display italic" style="color: var(--soft-white); opacity: 0.7;">"Italian silk. Midnight structure. Uncompromising."</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Words Use vs Avoid -->
+        <div data-id="356" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div data-id="357" id="words-use-g3h0" class="p-8 rounded-lg" style="background: var(--card);">
+                <h4 data-id="358" class="font-body font-bold text-xs uppercase mb-6 flex items-center gap-2" style="color: #4ade80; letter-spacing: 0.15em;">
+                    <i data-id="359" data-lucide="check-circle" class="w-4 h-4"></i> Words HECCA Uses
+                </h4>
+                <div data-id="360" class="flex flex-wrap gap-2">
+                    <span data-id="361" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Exclusive</span>
+                    <span data-id="362" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Fearless</span>
+                    <span data-id="363" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Crafted</span>
+                    <span data-id="364" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Heritage</span>
+                    <span data-id="365" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Elevated</span>
+                    <span data-id="366" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Magnetic</span>
+                    <span data-id="367" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Bold</span>
+                    <span data-id="368" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Iconic</span>
+                    <span data-id="369" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Curated</span>
+                    <span data-id="370" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #4ade80; color: #4ade80;">Statement</span>
+                </div>
+            </div>
+            <div data-id="371" id="words-avoid-i5j2" class="p-8 rounded-lg" style="background: var(--card);">
+                <h4 data-id="372" class="font-body font-bold text-xs uppercase mb-6 flex items-center gap-2" style="color: #f87171; letter-spacing: 0.15em;">
+                    <i data-id="373" data-lucide="x-circle" class="w-4 h-4"></i> Words HECCA Avoids
+                </h4>
+                <div data-id="374" class="flex flex-wrap gap-2">
+                    <span data-id="375" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Cheap</span>
+                    <span data-id="376" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Basic</span>
+                    <span data-id="377" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Trendy</span>
+                    <span data-id="378" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Sale</span>
+                    <span data-id="379" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Discount</span>
+                    <span data-id="380" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Fast Fashion</span>
+                    <span data-id="381" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Affordable</span>
+                    <span data-id="382" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Generic</span>
+                    <span data-id="383" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Average</span>
+                    <span data-id="384" class="px-3 py-1.5 rounded-full text-xs font-body font-semibold" style="border: 1px solid #f87171; color: #f87171;">Ordinary</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="385" class="gold-divider" />
+
+    <!-- ===== 10. SHOPIFY APPLICATION ===== -->
+    <section data-id="386" id="shopify-s8" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="387" id="shopify-heading-k7l4" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">08 — SHOPIFY APPLICATION</h2>
+
+        <!-- Shopify Mockup -->
+        <div data-id="388" id="shopify-mockup-m9n6" class="shopify-mockup max-w-3xl mx-auto mb-12">
+            <!-- Browser Chrome -->
+            <div data-id="389" class="flex items-center gap-2 px-4 py-3" style="background: #1a1a1a; border-bottom: 1px solid rgba(212,166,74,0.2);">
+                <div data-id="390" class="w-3 h-3 rounded-full" style="background: #f87171;"></div>
+                <div data-id="391" class="w-3 h-3 rounded-full" style="background: #fbbf24;"></div>
+                <div data-id="392" class="w-3 h-3 rounded-full" style="background: #4ade80;"></div>
+                <div data-id="393" class="flex-1 ml-4 px-4 py-1 rounded text-xs font-body" style="background: #0f0f0f; color: var(--soft-white); opacity: 0.5;">hecca.com</div>
+            </div>
+            <!-- Nav -->
+            <div data-id="394" class="flex items-center justify-between px-6 py-4" style="background: #0f0f0f; border-bottom: 1px solid rgba(212,166,74,0.3);">
+                <div data-id="395" class="flex items-center gap-4">
+                    <i data-id="396" data-lucide="menu" class="w-4 h-4" style="color: var(--soft-white); opacity: 0.6;"></i>
+                </div>
+                <span data-id="397" class="font-display font-bold text-lg" style="color: var(--gold); letter-spacing: 0.2em;">HECCA</span>
+                <div data-id="398" class="flex items-center gap-3">
+                    <i data-id="399" data-lucide="search" class="w-4 h-4" style="color: var(--soft-white); opacity: 0.6;"></i>
+                    <i data-id="400" data-lucide="shopping-bag" class="w-4 h-4" style="color: var(--soft-white); opacity: 0.6;"></i>
+                </div>
+            </div>
+            <!-- Hero Area -->
+            <div data-id="401" class="px-6 py-16 text-center" style="background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #1a1200 100%);">
+                <p data-id="402" class="font-body text-xs uppercase mb-2" style="color: var(--gold); letter-spacing: 0.2em; opacity: 0.7;">New Collection</p>
+                <p data-id="403" class="font-display font-bold text-2xl mb-4" style="color: var(--soft-white); letter-spacing: 0.15em;">HECCA FEMME SS26</p>
+                <div data-id="404" class="inline-block px-6 py-2 rounded-sm font-body text-xs uppercase font-semibold" style="background: var(--gold); color: var(--deep-black); letter-spacing: 0.15em;">Shop Now</div>
+            </div>
+            <!-- Product Grid -->
+            <div data-id="405" class="grid grid-cols-2 gap-3 p-4" style="background: #0f0f0f;">
+                <div data-id="406" class="rounded overflow-hidden" style="background: #1a1a1a;">
+                    <div data-id="407" class="w-full aspect-square" style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a);"></div>
+                    <div data-id="408" class="p-3">
+                        <p data-id="409" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.8;">Silk Drape Blazer</p>
+                        <p data-id="410" class="font-body text-xs font-semibold mt-1" style="color: var(--gold);">$1,280</p>
+                    </div>
+                </div>
+                <div data-id="411" class="rounded overflow-hidden" style="background: #1a1a1a;">
+                    <div data-id="412" class="w-full aspect-square" style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a);"></div>
+                    <div data-id="413" class="p-3">
+                        <p data-id="414" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.8;">Leopard Print Coat</p>
+                        <p data-id="415" class="font-body text-xs font-semibold mt-1" style="color: var(--gold);">$2,450</p>
+                    </div>
+                </div>
+                <div data-id="416" class="rounded overflow-hidden" style="background: #1a1a1a;">
+                    <div data-id="417" class="w-full aspect-square" style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a);"></div>
+                    <div data-id="418" class="p-3">
+                        <p data-id="419" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.8;">Heritage Hoodie</p>
+                        <p data-id="420" class="font-body text-xs font-semibold mt-1" style="color: var(--gold);">$680</p>
+                    </div>
+                </div>
+                <div data-id="421" class="rounded overflow-hidden" style="background: #1a1a1a;">
+                    <div data-id="422" class="w-full aspect-square" style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a);"></div>
+                    <div data-id="423" class="p-3">
+                        <p data-id="424" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.8;">Aura Sheer Gown</p>
+                        <p data-id="425" class="font-body text-xs font-semibold mt-1" style="color: var(--gold);">$3,100</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div data-id="426" class="px-6 py-4 text-center" style="background: #0f0f0f; border-top: 1px solid rgba(212,166,74,0.2);">
+                <p data-id="427" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.4;">© HECCA — The Standard of Hybrid Luxury</p>
+            </div>
+        </div>
+
+        <!-- Annotations -->
+        <div data-id="428" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div data-id="429" class="p-4 rounded" style="background: var(--card);">
+                <h5 data-id="430" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--gold); letter-spacing: 0.1em;">Homepage Hero</h5>
+                <p data-id="431" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Full-bleed campaign imagery with gold CTA. Rotate per collection drop.</p>
+            </div>
+            <div data-id="432" class="p-4 rounded" style="background: var(--card);">
+                <h5 data-id="433" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--gold); letter-spacing: 0.1em;">Navigation</h5>
+                <p data-id="434" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Centered logo, minimal menu. Slide-out drawer for mobile. Gold hover states.</p>
+            </div>
+            <div data-id="435" class="p-4 rounded" style="background: var(--card);">
+                <h5 data-id="436" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--gold); letter-spacing: 0.1em;">Product Cards</h5>
+                <p data-id="437" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Dark cards, minimal info. Price in gold. Quick-add on hover for desktop.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="438" class="gold-divider" />
+
+    <!-- ===== 11. COLLECTION IDENTITY ===== -->
+    <section data-id="439" id="collections-s9" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="440" id="collection-heading-o1p8" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">09 — COLLECTION IDENTITY</h2>
+
+        <div data-id="441" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- FEMME -->
+            <div data-id="442" id="coll-femme-q3r0" class="brand-card p-6 rounded-lg" style="background: var(--card); border-top: 3px solid var(--pink);">
+                <h4 data-id="443" class="font-display font-bold text-xl mb-4" style="color: var(--pink);">HECCA FEMME</h4>
+                <div data-id="444" class="flex gap-2 mb-4">
+                    <span data-id="445" class="w-5 h-5 rounded-full" style="background: var(--pink);"></span>
+                    <span data-id="446" class="w-5 h-5 rounded-full" style="background: var(--gold);"></span>
+                    <span data-id="447" class="w-5 h-5 rounded-full" style="background: var(--soft-white); border: 1px solid rgba(212,166,74,0.3);"></span>
+                </div>
+                <div data-id="448" class="flex flex-wrap gap-1.5 mb-4">
+                    <span data-id="449" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(232,76,127,0.15); color: var(--pink);">Satin</span>
+                    <span data-id="450" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(232,76,127,0.15); color: var(--pink);">Lace</span>
+                    <span data-id="451" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(232,76,127,0.15); color: var(--pink);">Floral</span>
+                </div>
+                <p data-id="452" class="font-body text-xs leading-relaxed" style="color: var(--soft-white); opacity: 0.7;">Sensual luxury, feminine power</p>
+            </div>
+            <!-- HOMME -->
+            <div data-id="453" id="coll-homme-s5t2" class="brand-card p-6 rounded-lg" style="background: var(--card); border-top: 3px solid var(--blue);">
+                <h4 data-id="454" class="font-display font-bold text-xl mb-4" style="color: var(--blue);">HECCA HOMME</h4>
+                <div data-id="455" class="flex gap-2 mb-4">
+                    <span data-id="456" class="w-5 h-5 rounded-full" style="background: var(--blue);"></span>
+                    <span data-id="457" class="w-5 h-5 rounded-full" style="background: var(--deep-black); border: 1px solid rgba(255,255,255,0.3);"></span>
+                    <span data-id="458" class="w-5 h-5 rounded-full" style="background: var(--gold);"></span>
+                </div>
+                <div data-id="459" class="flex flex-wrap gap-1.5 mb-4">
+                    <span data-id="460" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(58,111,176,0.15); color: var(--blue);">Heavy Woven</span>
+                    <span data-id="461" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(58,111,176,0.15); color: var(--blue);">Suiting</span>
+                    <span data-id="462" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(58,111,176,0.15); color: var(--blue);">Hardware</span>
+                </div>
+                <p data-id="463" class="font-body text-xs leading-relaxed" style="color: var(--soft-white); opacity: 0.7;">Authority, precision, modern masculinity</p>
+            </div>
+            <!-- WILD -->
+            <div data-id="464" id="coll-wild-u7v4" class="brand-card p-6 rounded-lg" style="background: var(--card); border-top: 3px solid var(--tan);">
+                <h4 data-id="465" class="font-display font-bold text-xl mb-4" style="color: var(--tan);">HECCA WILD</h4>
+                <div data-id="466" class="flex gap-2 mb-4">
+                    <span data-id="467" class="w-5 h-5 rounded-full" style="background: var(--tan);"></span>
+                    <span data-id="468" class="w-5 h-5 rounded-full" style="background: var(--beige);"></span>
+                    <span data-id="469" class="w-5 h-5 rounded-full" style="background: var(--gold);"></span>
+                </div>
+                <div data-id="470" class="flex flex-wrap gap-1.5 mb-4">
+                    <span data-id="471" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(200,169,126,0.15); color: var(--tan);">Faux Leopard</span>
+                    <span data-id="472" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(200,169,126,0.15); color: var(--tan);">Zebra</span>
+                    <span data-id="473" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(200,169,126,0.15); color: var(--tan);">Python</span>
+                </div>
+                <p data-id="474" class="font-body text-xs leading-relaxed" style="color: var(--soft-white); opacity: 0.7;">Fearless, primal luxury, statement fashion</p>
+            </div>
+            <!-- AURA -->
+            <div data-id="475" id="coll-aura-w9x6" class="brand-card p-6 rounded-lg" style="background: var(--card); border-top: 3px solid var(--sky);">
+                <h4 data-id="476" class="font-display font-bold text-xl mb-4" style="color: var(--sky);">HECCA AURA</h4>
+                <div data-id="477" class="flex gap-2 mb-4">
+                    <span data-id="478" class="w-5 h-5 rounded-full" style="background: var(--sky);"></span>
+                    <span data-id="479" class="w-5 h-5 rounded-full" style="background: var(--gold);"></span>
+                </div>
+                <div data-id="480" class="flex flex-wrap gap-1.5 mb-4">
+                    <span data-id="481" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(167,199,242,0.15); color: var(--sky);">Iridescent</span>
+                    <span data-id="482" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(167,199,242,0.15); color: var(--sky);">Holographic</span>
+                    <span data-id="483" class="px-2 py-1 rounded text-xs font-body" style="background: rgba(167,199,242,0.15); color: var(--sky);">Sheer</span>
+                </div>
+                <p data-id="484" class="font-body text-xs leading-relaxed" style="color: var(--soft-white); opacity: 0.7;">Otherworldly, exclusive, collector's edition</p>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="485" class="gold-divider" />
+
+    <!-- ===== 12. TEXTURE & ACCENT LOGIC ===== -->
+    <section data-id="486" id="texture-s10" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="487" id="texture-heading-y1z8" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">10 — TEXTURE &amp; ACCENT LOGIC</h2>
+
+        <div data-id="488" class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <!-- Texture Usage -->
+            <div data-id="489" id="texture-usage-a3b0">
+                <h3 data-id="490" class="font-display font-bold text-xl mb-6" style="color: var(--gold);">Texture Usage</h3>
+                <div data-id="491" class="space-y-6">
+                    <div data-id="492" class="p-5 rounded-lg" style="background: var(--card);">
+                        <h5 data-id="493" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--tan); letter-spacing: 0.1em;">Leopard Print</h5>
+                        <p data-id="494" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Use sparingly as accent — never as full background. Maximum 30% of composition area. Reserve for WILD collection materials.</p>
+                    </div>
+                    <div data-id="495" class="p-5 rounded-lg" style="background: var(--card);">
+                        <h5 data-id="496" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--beige); letter-spacing: 0.1em;">Stripe Beige Pattern</h5>
+                        <p data-id="497" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Horizontal or diagonal stripes only. Use for packaging, shopping bags, and tissue paper. Stripe width: 4–8mm.</p>
+                    </div>
+                    <div data-id="498" class="p-5 rounded-lg" style="background: var(--card);">
+                        <h5 data-id="499" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--gold); letter-spacing: 0.1em;">Gold Foil Texture</h5>
+                        <p data-id="500" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Reserved for logo applications, hang tags, and premium print collateral. Hot-stamped foil preferred over printed gold.</p>
+                    </div>
+                    <div data-id="501" class="p-5 rounded-lg" style="background: var(--card);">
+                        <h5 data-id="502" class="font-body font-bold text-xs uppercase mb-2" style="color: var(--soft-white); letter-spacing: 0.1em; opacity: 0.8;">Fabric Texture Photography</h5>
+                        <p data-id="503" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">Macro fabric shots may be used as section backgrounds at 10–15% opacity. Maintains tactile, luxury feel.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Accent Logic -->
+            <div data-id="504" id="accent-logic-c5d2">
+                <h3 data-id="505" class="font-display font-bold text-xl mb-6" style="color: var(--gold);">Accent Logic</h3>
+                <div data-id="506" class="space-y-6">
+                    <div data-id="507" class="p-5 rounded-lg" style="background: var(--card);">
+                        <div data-id="508" class="flex items-center gap-3 mb-2">
+                            <span data-id="509" class="w-4 h-4 rounded-full" style="background: var(--pink);"></span>
+                            <h5 data-id="510" class="font-body font-bold text-xs uppercase" style="color: var(--pink); letter-spacing: 0.1em;">Boutique Pink</h5>
+                        </div>
+                        <p data-id="511" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">HECCA Femme campaigns, feminine product pages, Valentine's &amp; Mother's Day</p>
+                    </div>
+                    <div data-id="512" class="p-5 rounded-lg" style="background: var(--card);">
+                        <div data-id="513" class="flex items-center gap-3 mb-2">
+                            <span data-id="514" class="w-4 h-4 rounded-full" style="background: var(--blue);"></span>
+                            <h5 data-id="515" class="font-body font-bold text-xs uppercase" style="color: var(--blue); letter-spacing: 0.1em;">Electric Blue</h5>
+                        </div>
+                        <p data-id="516" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">HECCA Homme campaigns, men's digital content, urban photography</p>
+                    </div>
+                    <div data-id="517" class="p-5 rounded-lg" style="background: var(--card);">
+                        <div data-id="518" class="flex items-center gap-3 mb-2">
+                            <span data-id="519" class="w-4 h-4 rounded-full" style="background: var(--tan);"></span>
+                            <h5 data-id="520" class="font-body font-bold text-xs uppercase" style="color: var(--tan); letter-spacing: 0.1em;">Leopard Tan</h5>
+                        </div>
+                        <p data-id="521" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">HECCA Wild collection, editorial lookbooks, animal-print storytelling</p>
+                    </div>
+                    <div data-id="522" class="p-5 rounded-lg" style="background: var(--card);">
+                        <div data-id="523" class="flex items-center gap-3 mb-2">
+                            <span data-id="524" class="w-4 h-4 rounded-full" style="background: var(--sky);"></span>
+                            <h5 data-id="525" class="font-body font-bold text-xs uppercase" style="color: var(--sky); letter-spacing: 0.1em;">Sky Blue</h5>
+                        </div>
+                        <p data-id="526" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.7;">HECCA Aura limited editions, holographic treatments, collector assets</p>
+                    </div>
+                </div>
+
+                <!-- Callout -->
+                <div data-id="527" class="mt-8 p-6 rounded-lg" style="border: 1px solid var(--gold); background: rgba(212,166,74,0.04);">
+                    <p data-id="528" class="font-body text-sm font-semibold" style="color: var(--gold);">One accent color per composition maximum.</p>
+                    <p data-id="529" class="font-body text-xs mt-2" style="color: var(--soft-white); opacity: 0.7;">Hybrid Gold is the only color permitted to pair with any accent. Never combine two accent colors (e.g., Pink + Blue) in a single layout.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="530" class="gold-divider" />
+
+    <!-- ===== 13. VISUAL EXAMPLES ===== -->
+    <section data-id="531" id="visual-s11" class="py-20 md:py-28 px-5 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <h2 data-id="532" id="visual-heading-e7f4" class="section-header font-display font-bold text-2xl md:text-4xl mb-16" style="color: var(--gold); letter-spacing: 0.1em;">11 — VISUAL EXAMPLES</h2>
+
+        <div data-id="533" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- A. Lookbook Spread -->
+            <div data-id="534" id="mockup-lookbook-g9h6" class="brand-card rounded-lg overflow-hidden" style="background: var(--card);">
+                <div data-id="535" class="p-8" style="background: linear-gradient(135deg, #0f0f0f, #1a1200); min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; position: relative;">
+                    <div data-id="536" class="absolute top-0 right-0 w-full h-1" style="background: var(--pink);"></div>
+                    <p data-id="537" class="font-body text-xs uppercase mb-2" style="color: var(--pink); letter-spacing: 0.2em; opacity: 0.8;">Spring/Summer 2026</p>
+                    <h4 data-id="538" class="font-display font-bold text-3xl" style="color: var(--gold); letter-spacing: 0.15em;">HECCA FEMME SS26</h4>
+                    <p data-id="539" class="font-display italic text-sm mt-2" style="color: var(--soft-white); opacity: 0.6;">The Power of Softness</p>
+                </div>
+                <div data-id="540" class="px-6 py-4">
+                    <p data-id="541" class="font-body text-xs uppercase font-semibold" style="color: var(--gold); letter-spacing: 0.1em;">Lookbook Spread</p>
+                </div>
+            </div>
+
+            <!-- B. Shopify Homepage Hero -->
+            <div data-id="542" id="mockup-shopify-i1j8" class="brand-card rounded-lg overflow-hidden" style="background: var(--card);">
+                <div data-id="543" class="rounded-t-lg overflow-hidden" style="border: 1px solid rgba(212,166,74,0.15);">
+                    <!-- Mini browser bar -->
+                    <div data-id="544" class="flex items-center gap-1.5 px-3 py-2" style="background: #222;">
+                        <div data-id="545" class="w-2 h-2 rounded-full" style="background: #f87171;"></div>
+                        <div data-id="546" class="w-2 h-2 rounded-full" style="background: #fbbf24;"></div>
+                        <div data-id="547" class="w-2 h-2 rounded-full" style="background: #4ade80;"></div>
+                    </div>
+                    <div data-id="548" class="flex flex-col items-center justify-center py-16" style="background: #0f0f0f; min-height: 180px;">
+                        <div data-id="549" class="monogram-ring w-16 h-16 rounded-full border flex items-center justify-center mb-3" style="border-color: var(--gold);">
+                            <span data-id="550" class="font-display font-bold text-2xl monogram-glow" style="color: var(--gold);">H</span>
+                        </div>
+                        <p data-id="551" class="font-display font-bold text-lg" style="color: var(--gold); letter-spacing: 0.25em;">HECCA</p>
+                        <p data-id="552" class="font-body text-xs mt-2" style="color: var(--soft-white); opacity: 0.5;">Where Culture Meets Couture</p>
+                    </div>
+                </div>
+                <div data-id="553" class="px-6 py-4">
+                    <p data-id="554" class="font-body text-xs uppercase font-semibold" style="color: var(--gold); letter-spacing: 0.1em;">Shopify Homepage Hero</p>
+                </div>
+            </div>
+
+            <!-- C. Hang Tag -->
+            <div data-id="555" id="mockup-hangtag-k3l0" class="brand-card rounded-lg overflow-hidden" style="background: var(--card);">
+                <div data-id="556" class="flex items-center justify-center py-8" style="min-height: 220px;">
+                    <div data-id="557" class="flex flex-col items-center justify-center rounded-sm relative" style="width: 130px; height: 200px; background: var(--beige);">
+                        <!-- Hole -->
+                        <div data-id="558" class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full" style="border: 2px solid var(--gold); background: var(--beige);"></div>
+                        <!-- Content -->
+                        <div data-id="559" class="monogram-ring w-12 h-12 rounded-full border flex items-center justify-center mb-3 mt-4" style="border-color: var(--gold);">
+                            <span data-id="560" class="font-display font-bold text-xl" style="color: var(--gold);">H</span>
+                        </div>
+                        <p data-id="561" class="font-display font-bold text-xs" style="color: var(--deep-black); letter-spacing: 0.15em;">HECCA</p>
+                        <div data-id="562" class="w-8 h-0.5 my-2" style="background: var(--gold);"></div>
+                        <div data-id="563" class="w-4 h-4 rounded-full mb-1" style="background: var(--blue);"></div>
+                        <p data-id="564" class="font-body text-xs mt-1" style="color: var(--deep-black); opacity: 0.5; font-size: 7px; letter-spacing: 0.1em;">HOMME COLLECTION</p>
+                    </div>
+                </div>
+                <div data-id="565" class="px-6 py-4">
+                    <p data-id="566" class="font-body text-xs uppercase font-semibold" style="color: var(--gold); letter-spacing: 0.1em;">Hang Tag Design</p>
+                </div>
+            </div>
+
+            <!-- D. Instagram Post -->
+            <div data-id="567" id="mockup-insta-m5n2" class="brand-card rounded-lg overflow-hidden" style="background: var(--card);">
+                <div data-id="568" class="flex items-center justify-center py-8" style="min-height: 220px;">
+                    <div data-id="569" class="overflow-hidden rounded" style="width: 180px; height: 180px; background: #0f0f0f; position: relative;">
+                        <!-- Content area -->
+                        <div data-id="570" class="flex flex-col items-center justify-center h-full pb-8">
+                            <p data-id="571" class="font-display font-bold text-lg" style="color: var(--gold); letter-spacing: 0.2em;">HECCA</p>
+                            <p data-id="572" class="font-display italic text-xs mt-1" style="color: var(--soft-white); opacity: 0.6;">Wild Collection</p>
+                        </div>
+                        <!-- Gold bottom bar -->
+                        <div data-id="573" class="absolute bottom-0 left-0 w-full flex items-center justify-center py-2" style="background: var(--gold);">
+                            <p data-id="574" class="font-body font-bold uppercase" style="font-size: 7px; letter-spacing: 0.15em; color: var(--deep-black);">HECCA WILD — Available Now</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-id="575" class="px-6 py-4">
+                    <p data-id="576" class="font-body text-xs uppercase font-semibold" style="color: var(--gold); letter-spacing: 0.1em;">Instagram Post Template</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr data-id="577" class="gold-divider" />
+
+    <!-- ===== 14. CLOSING ===== -->
+    <section data-id="578" id="closing-s12" class="py-28 md:py-36 px-5 text-center">
+        <div data-id="579" class="monogram-ring w-20 h-20 rounded-full border flex items-center justify-center mx-auto mb-10" style="border-color: var(--gold);">
+            <span data-id="580" class="font-display font-bold text-3xl monogram-glow" style="color: var(--gold);">H</span>
+        </div>
+        <h2 data-id="581" id="closing-title-o7p4" class="font-display font-bold text-3xl md:text-5xl mb-6" style="color: var(--gold); letter-spacing: 0.1em; line-height: 1.2;">HECCA — The Standard of Hybrid Luxury</h2>
+        <p data-id="582" class="font-display italic text-lg md:text-xl mb-10" style="color: var(--soft-white); opacity: 0.7;">This guide is the foundation. The collection is the statement.</p>
+        <div data-id="583" class="flex flex-col items-center gap-2">
+            <p data-id="584" class="font-body text-sm" style="color: var(--gold);">brand@hecca.com</p>
+            <p data-id="585" class="font-body text-sm" style="color: var(--gold);">hecca.com</p>
+        </div>
+    </section>
+
+    </main>
+
+    <footer data-id="586" class="py-8 text-center" style="border-top: 1px solid rgba(212,166,74,0.15);">
+        <p data-id="587" class="font-body text-xs" style="color: var(--soft-white); opacity: 0.3;">Made by Copilot</p>
+    </footer>
+
+    <script>
+        // Guard Lucide icons
+        if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
+            lucide.createIcons();
+        }
+
+        // ========== STICKY NAV ==========
+        const heroSection = document.getElementById('hero-k9m2');
+        const stickyNav = document.getElementById('sticky-nav-a1b2');
+        const mobileMenu = document.getElementById('mobile-menu-m7j4');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn-n8k3');
+        const mobileMenuClose = document.getElementById('mobile-menu-close-b5v6');
+
+        function handleNavVisibility() {
+            if (!heroSection || !stickyNav) return;
+            const heroBottom = heroSection.getBoundingClientRect().bottom;
+            if (heroBottom <= 0) {
+                stickyNav.classList.remove('hidden');
+                stickyNav.classList.add('visible');
+            } else {
+                stickyNav.classList.remove('visible');
+                setTimeout(function() {
+                    if (!stickyNav.classList.contains('visible')) {
+                        stickyNav.classList.add('hidden');
+                    }
+                }, 400);
+            }
+        }
+
+        window.addEventListener('scroll', handleNavVisibility, { passive: true });
+
+        // Mobile menu toggle
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+            });
+        }
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+
+        // Mobile nav link click — close menu
+        document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ========== ACTIVE NAV LINK HIGHLIGHTING ==========
+        const sections = [
+            { id: 'brand-essence-s1', link: 'brand-essence-s1' },
+            { id: 'personality-s2', link: 'personality-s2' },
+            { id: 'logo-system-s3', link: 'logo-system-s3' },
+            { id: 'color-palette-s4', link: 'color-palette-s4' },
+            { id: 'typography-s5', link: 'typography-s5' },
+            { id: 'imagery-s6', link: 'imagery-s6' },
+            { id: 'brand-voice-s7', link: 'brand-voice-s7' },
+            { id: 'shopify-s8', link: 'shopify-s8' },
+            { id: 'collections-s9', link: 'collections-s9' },
+            { id: 'texture-s10', link: 'texture-s10' },
+            { id: 'visual-s11', link: 'visual-s11' }
+        ];
+
+        function updateActiveNav() {
+            var scrollPos = window.scrollY + 120;
+            var activeId = '';
+            sections.forEach(function(s) {
+                var el = document.getElementById(s.id);
+                if (el && el.offsetTop <= scrollPos) {
+                    activeId = s.link;
+                }
+            });
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                if (link.getAttribute('href') === '#' + activeId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+        // ========== SECTION HEADER FADE-IN ==========
+        var sectionHeaders = document.querySelectorAll('.section-header');
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+            sectionHeaders.forEach(function(header) {
+                observer.observe(header);
+            });
+        } else {
+            sectionHeaders.forEach(function(h) { h.classList.add('visible'); });
+        }
+
+        // ========== COLOR SWATCH COPY ==========
+        var toast = document.getElementById('toast-hex-c3d4');
+        var toastTimer = null;
+
+        document.querySelectorAll('.color-swatch').forEach(function(swatch) {
+            swatch.addEventListener('click', function() {
+                var hex = swatch.getAttribute('data-hex');
+                if (!hex) return;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(hex).then(function() {
+                        showToast(hex);
+                    }).catch(function() {
+                        fallbackCopy(hex);
+                    });
+                } else {
+                    fallbackCopy(hex);
+                }
+            });
+        });
+
+        function fallbackCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            showToast(text);
+        }
+
+        function showToast(hex) {
+            if (!toast) return;
+            toast.textContent = 'Copied ' + hex + '!';
+            toast.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(function() {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
