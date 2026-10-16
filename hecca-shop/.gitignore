@@ -1,0 +1,19 @@
+# Shopify store work — keep secrets and generated data out of git
+.env
+.env.*
+*.local
+
+node_modules/
+
+# Generated: catalogue snapshot of the live store. Regenerate with
+# scripts/fetch-catalog.mjs. Everything else in data/ is source of truth
+# (taxonomy.mjs, vintage-products.mjs) or captured evidence (mercari-*.json)
+# and must be committed.
+/data/catalog.json
+
+# generated audit output
+/reports/
+*.csv
+*.json.tmp
+
+.DS_Store

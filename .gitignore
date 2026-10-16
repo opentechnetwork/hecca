@@ -1,0 +1,18 @@
+# never commit credentials
+.env
+.env.*
+*.env
+*.local
+
+# dependencies
+node_modules/
+
+# local audit output
+reports/
+data/*.tmp
+*.json.tmp
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db

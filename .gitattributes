@@ -1,0 +1,9 @@
+# Normalise line endings. The repo is edited on Windows but the tooling is
+# Node, so store LF in git and check out LF everywhere to avoid churn.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

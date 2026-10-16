@@ -1,0 +1,126 @@
+{
+  "note": "Vintage/archive candidates pulled from the HCSYLVAN Mercari profile (user372643498). Curation pass for HECCA's Vintage category. Descriptions are verbatim from Mercari JSON-LD and are SOURCE material, not HECCA copy.",
+  "source": "https://www.mercari.com/u/user372643498/",
+  "capturedAt": "2026-10-16T15:52:00.000Z",
+  "candidates": [
+    {
+      "id": "m86280864671",
+      "name": "Vintage Purse",
+      "vendor": "Christian Lacroix",
+      "mercartiCategory": "Women > Women's handbags > Crossbody Bags",
+      "price": 18.5,
+      "condition": "UsedCondition",
+      "sourceDescription": "Christian Lacroix vintage purse. Hook snap front. Pink, grey and white. Adjustable strap. Inside is perfect. Polka dot interior",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_3.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_4.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_5.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_6.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m86280864671_7.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m86280864671/",
+      "verdict": "KEEP",
+      "reason": "Genuine couture-house vintage. Real designer name, good condition, strong vintage story."
+    },
+    {
+      "id": "m46466867967",
+      "name": "Esprit 90's vintage purse wallet",
+      "vendor": "Esprit",
+      "mercartiCategory": "Women > Women's handbags > Crossbody Bags",
+      "price": 16,
+      "condition": "UsedCondition",
+      "sourceDescription": "Vintage green and brown wallet purse. Never used.",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m46466867967_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m46466867967_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m46466867967_3.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m46466867967_4.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m46466867967_5.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m46466867967/",
+      "verdict": "KEEP",
+      "reason": "1990s, described as never used. Esprit is a legitimate 80s/90s label with real archive credibility."
+    },
+    {
+      "id": "m29777261187",
+      "name": "Vintage Rings Bundle",
+      "vendor": null,
+      "mercartiCategory": "Women > Jewelry > Earrings (miscategorised by seller)",
+      "price": 15,
+      "condition": "UsedCondition",
+      "sourceDescription": "Vintage Rings from the 90's bundle of 4. Both black and white/cream are size 8 1/2. Heart Ring is size 7. Flower Ring is size 7",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_3.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_4.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_5.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_6.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_7.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m29777261187_8.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m29777261187/",
+      "verdict": "BORDERLINE",
+      "reason": "Genuinely 90s, but costume rings, not fine jewellery. Works as a cheap archive find; undercuts a luxury price point."
+    },
+    {
+      "id": "m68052149914",
+      "name": "Green Stone Ring",
+      "vendor": null,
+      "mercartiCategory": "Women > Jewelry > Rings",
+      "price": 13,
+      "condition": "UsedCondition",
+      "sourceDescription": "Silver with green stone oval shaped. Size 7",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_3.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_4.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_5.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m68052149914_6.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m68052149914/",
+      "verdict": "SKIP",
+      "reason": "No vintage claim, no brand, no age evidence. Contemporary costume ring."
+    },
+    {
+      "id": "m61957691789",
+      "name": "Moon and Sun Necklace",
+      "vendor": null,
+      "mercartiCategory": "Women > Jewelry > Necklaces",
+      "price": 18.5,
+      "condition": "UsedCondition",
+      "sourceDescription": "Delicate gold chain necklace featuring a pendant shaped like a crescent moon and star.",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m61957691789_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m61957691789_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m61957691789_3.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m61957691789/",
+      "verdict": "SKIP",
+      "reason": "Modern costume jewellery. No age or provenance."
+    },
+    {
+      "id": "m32767524080",
+      "name": "Suede Jacket",
+      "vendor": "Macy's",
+      "mercartiCategory": "Women > Suits & blazers > Blazer",
+      "price": 17,
+      "condition": "UsedCondition",
+      "sourceDescription": "Red suede look jacket. Front zippers. Notch lapel.",
+      "images": [
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_1.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_2.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_3.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_4.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_5.jpg",
+        "https://u-mercari-images.mercdn.net/photos/m32767524080_6.jpg"
+      ],
+      "url": "https://www.mercari.com/us/item/m32767524080/",
+      "verdict": "SKIP",
+      "reason": "Described as 'suede look' — i.e. synthetic. Department-store label, no vintage claim."
+    }
+  ]
+}

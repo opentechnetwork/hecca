@@ -1,0 +1,64 @@
+{
+  "fetchedAt": "2026-10-16T00:00:00.000Z",
+  "apiVersion": "TEST",
+  "shop": { "name": "HECCA (fixture)", "myshopifyDomain": "hecca-nmec6dmd.myshopify.com", "currencyCode": "USD" },
+  "locations": [{ "id": "gid://shopify/Location/1", "name": "HECCA HQ", "isActive": true, "fulfillsOnlineOrders": true }],
+  "productsCount": 5,
+  "productCountFetched": 5,
+  "products": [
+    {
+      "id": "gid://shopify/Product/1", "title": "Silk Drape Blazer", "handle": "silk-drape-blazer",
+      "status": "ACTIVE", "vendor": "HECCA", "productType": "Blazer", "tags": ["FEMME"], "totalInventory": 7,
+      "publishedAt": "2026-09-01T00:00:00Z", "seo": { "title": "Silk Drape Blazer", "description": "Italian silk." },
+      "featuredImage": { "url": "https://cdn/1.jpg" },
+      "variants": { "pageInfo": { "hasNextPage": false }, "nodes": [
+        { "id": "v1", "title": "XS", "sku": "HEC-SDB-XS", "barcode": "111", "price": "1280.00", "compareAtPrice": null, "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Size","value":"XS"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": {"amount":"300.00"}, "inventoryLevels": { "nodes": [ { "id": "l1", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":4},{"name":"committed","quantity":0},{"name":"incoming","quantity":0}] } ] } } },
+        { "id": "v2", "title": "M", "sku": "HEC-SDB-M", "barcode": "112", "price": "1280.00", "compareAtPrice": null, "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Size","value":"M"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": {"amount":"300.00"}, "inventoryLevels": { "nodes": [ { "id": "l2", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":3},{"name":"committed","quantity":1},{"name":"incoming","quantity":0}] } ] } } }
+      ] }
+    },
+    {
+      "id": "gid://shopify/Product/2", "title": "Leopard Print Coat", "handle": "leopard-print-coat",
+      "status": "ACTIVE", "vendor": "HECCA", "productType": "Coat", "tags": ["WILD"], "totalInventory": 0,
+      "publishedAt": "2026-09-01T00:00:00Z", "seo": { "title": "", "description": "" },
+      "featuredImage": null,
+      "variants": { "pageInfo": { "hasNextPage": false }, "nodes": [
+        { "id": "v3", "title": "Default Title", "sku": "HEC-LPC", "barcode": "", "price": "2450.00", "compareAtPrice": "1999.00", "inventoryPolicy": "CONTINUE", "selectedOptions": [{"name":"Title","value":"Default Title"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": null, "inventoryLevels": { "nodes": [ { "id": "l3", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":0},{"name":"committed","quantity":0},{"name":"incoming","quantity":0}] } ] } } }
+      ] }
+    },
+    {
+      "id": "gid://shopify/Product/3", "title": "Heritage Hoodie", "handle": "heritage-hoodie",
+      "status": "DRAFT", "vendor": "HECCA", "productType": "Hoodie", "tags": [], "totalInventory": -2,
+      "publishedAt": null, "seo": { "title": "Heritage Hoodie — Rooted in Heritage, Dressed in Vision and Crafted for the Extraordinary", "description": "A very long meta description that comfortably exceeds the one hundred and sixty character guidance used for search snippets and should be trimmed down to something tighter for search engines to display properly without truncation." },
+      "featuredImage": { "url": "https://cdn/3.jpg" },
+      "variants": { "pageInfo": { "hasNextPage": false }, "nodes": [
+        { "id": "v4", "title": "S", "sku": "", "barcode": "", "price": "680.00", "compareAtPrice": null, "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Size","value":"S"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": null, "inventoryLevels": { "nodes": [ { "id": "l4", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":-2},{"name":"committed","quantity":0},{"name":"incoming","quantity":0}] } ] } } }
+      ] }
+    },
+    {
+      "id": "gid://shopify/Product/4", "title": "Aura Sheer Gown", "handle": "aura-sheer-gown",
+      "status": "ACTIVE", "vendor": "HECCA", "productType": "Gown", "tags": ["AURA"], "totalInventory": 0,
+      "publishedAt": "2026-09-02T00:00:00Z", "seo": { "title": "Aura Sheer Gown", "description": "Otherworldly." },
+      "featuredImage": { "url": "https://cdn/4.jpg" },
+      "variants": { "pageInfo": { "hasNextPage": false }, "nodes": [
+        { "id": "v5", "title": "Default Title", "sku": "HEC-ASG", "barcode": "", "price": "3100.00", "compareAtPrice": null, "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Title","value":"Default Title"}], "image": null,
+          "inventoryItem": { "tracked": false, "unitCost": null, "inventoryLevels": { "nodes": [] } } }
+      ] }
+    },
+    {
+      "id": "gid://shopify/Product/5", "title": "Signature Tee", "handle": "signature-tee",
+      "status": "ACTIVE", "vendor": "HECCA", "productType": "Tee", "tags": [], "totalInventory": 2,
+      "publishedAt": "2026-09-03T00:00:00Z", "seo": { "title": "Signature Tee", "description": "Crafted cotton." },
+      "featuredImage": { "url": "https://cdn/5.jpg" },
+      "variants": { "pageInfo": { "hasNextPage": false }, "nodes": [
+        { "id": "v6", "title": "S", "sku": "HEC-SIG-S", "barcode": "222", "price": "180.00", "compareAtPrice": null, "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Size","value":"S"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": null, "inventoryLevels": { "nodes": [ { "id": "l6", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":1},{"name":"committed","quantity":0},{"name":"incoming","quantity":0}] } ] } } },
+        { "id": "v7", "title": "M", "sku": "HEC-SIG-S", "barcode": "223", "price": "180.00", "compareAtPrice": "200.00", "inventoryPolicy": "DENY", "selectedOptions": [{"name":"Size","value":"M"}], "image": null,
+          "inventoryItem": { "tracked": true, "unitCost": null, "inventoryLevels": { "nodes": [ { "id": "l7", "location": {"id":"loc1","name":"HECCA HQ"}, "quantities": [{"name":"available","quantity":1},{"name":"committed","quantity":0},{"name":"incoming","quantity":0}] } ] } } }
+      ] }
+    }
+  ]
+}

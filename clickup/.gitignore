@@ -1,0 +1,13 @@
+# ClickUp integration — keep secrets and generated data out of git
+.env
+.env.*
+*.local
+
+node_modules/
+
+# generated output
+/reports/
+*.csv
+*.json.tmp
+
+.DS_Store
