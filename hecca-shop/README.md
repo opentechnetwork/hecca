@@ -100,6 +100,9 @@ node scripts/navigation.mjs                             # plan the storefront me
 node scripts/navigation.mjs --apply                     # create / update the main-menu
 node scripts/navigation.mjs --verify                    # dump the live menu tree
 
+node scripts/purge-demo.mjs                             # plan demo-data deletion (no writes)
+node scripts/purge-demo.mjs --apply                     # permanently delete demo products/collections
+
 node scripts/schema.mjs productCreate                   # print a mutation's exact signature
 node scripts/schema.mjs --input ProductCreateInput      # print an input type's fields
 ```
@@ -199,6 +202,19 @@ one-off piece is identifiable in the Shopify admin **Inventory** view. A SKU is 
 for a stock row to be workable; without one the item appears but cannot be reconciled.
 `products.mjs` treats a missing or wrong SKU as drift and repairs it on `--apply`.
 
+## Removing demo data
+
+`purge-demo.mjs` clears out Shopify's demo dataset (snowboards, ski wax, a gift
+card, and their template collections).
+
+It is a **whitelist** purge: everything is deleted unless it is defined in
+`data/vintage-products.mjs` (products) or `data/taxonomy.mjs` (collections). Add a
+real product or collection to those files and it is protected automatically — there
+is no exclusion list to maintain. It refuses to run if either protected set comes
+back empty, so a broken import can never turn into a wiped store.
+
+Deletion is permanent, so the script is a dry run unless `--apply` is passed.
+
 ## Store state
 
 Verified live (see `collections.mjs --verify` and `products.mjs --verify`):
@@ -209,6 +225,10 @@ Verified live (see `collections.mjs --verify` and `products.mjs --verify`):
   12 images re-hosted on Shopify's own CDN (Mercari is not a runtime dependency):
   - Vintage Christian Lacroix Crossbody — $55.00 · `HECCA-VIN-0001`
   - Vintage Esprit 90s Wallet Purse — $48.00 · `HECCA-VIN-0002`
+- **Demo data removed.** The store shipped with Shopify's snowboard test catalog
+  (17 products, 3 collections). `purge-demo.mjs` deleted all of it, so the catalog
+  is now exclusively HECCA. The inventory audit reports **zero** missing SKUs,
+  prices, images, or SEO fields.
 
 Blocked / outstanding:
 
@@ -219,7 +239,6 @@ Blocked / outstanding:
   written to the collection `descriptionHtml` on create, not on update.
 - **Store is a dev store** on *Basic App Development*. It cannot be opened publicly
   until it is moved to a paid plan.
-- **17 demo products** (snowboards, etc.) are still in the store.
 - **Product copy has not been reviewed by the owner** and is currently published.
 - Mercari sweep is partial: 50 of the 118 reported listings were captured.
 - **Rotate the app client secret** — the previous one was exposed in plain text.
