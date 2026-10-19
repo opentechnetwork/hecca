@@ -7,7 +7,7 @@
 //
 // Products are matched by handle, so this is idempotent. Re-running --apply
 // does not duplicate anything; it repairs anything that is out of sync
-// (price, inventory, tracking, publication).
+// (title, vendor, tags, SEO, price, inventory, tracking, publication).
 //
 // Per product:
 //   1. productCreate   — title, vendor, type, tags, SEO, description + images.
@@ -64,6 +64,13 @@ const PUBLISH = `mutation Publish($id: ID!, $input: [PublicationInput!]!) {
   publishablePublish(id: $id, input: $input) { userErrors { field message } }
 }`;
 
+const PRODUCT_UPDATE = `mutation UpdateProduct($product: ProductUpdateInput!) {
+  productUpdate(product: $product) {
+    product { id handle }
+    userErrors { field message }
+  }
+}`;
+
 const LIST = `query Existing($cursor: String) {
   products(first: 100, after: $cursor) {
     pageInfo { hasNextPage endCursor }
@@ -104,6 +111,25 @@ const mediaSummary = (p) => {
   const bad = nodes.filter((m) => m.status && m.status !== "READY").map((m) => m.status);
   return bad.length ? `${ok}/${nodes.length} ready (${[...new Set(bad)].join(",")})` : `${ok}/${nodes.length} ready`;
 };
+
+// Vendor must never be empty: Shopify substitutes the shop name ("HECCA Shop"),
+// which implies HECCA manufactured the piece. Fall back to "Unbranded" instead.
+const vendorFor = (p) => p.vendor || "Unbranded";
+
+/** Drift in the product-level fields (as opposed to the variant). */
+function productDrift(live, p) {
+  const d = [];
+  if (live.title !== p.title) d.push("title");
+  if ((live.vendor ?? "") !== vendorFor(p)) {
+    d.push(`vendor "${live.vendor ?? "—"}" → "${vendorFor(p)}"`);
+  }
+  const liveTags = [...(live.tags ?? [])].sort().join(",");
+  const wantTags = [...p.tags].sort().join(",");
+  if (liveTags !== wantTags) d.push("tags");
+  if ((live.seo?.title ?? "") !== (p.seoTitle ?? "")) d.push("seo title");
+  if ((live.seo?.description ?? "") !== (p.seoDescription ?? "")) d.push("seo description");
+  return d;
+}
 
 // ── verify ─────────────────────────────────────────────────────────────────
 if (VERIFY) {
@@ -147,6 +173,7 @@ for (const p of VINTAGE_PRODUCTS) {
     if (v.inventoryItem?.sku !== p.sku) drift.push(`sku ${v.inventoryItem?.sku || "—"} → ${p.sku}`);
     if (!v.inventoryItem?.tracked) drift.push("tracking off → on");
     if (!hit.publishedAt) drift.push("unpublished → published");
+    for (const f of productDrift(hit, p)) drift.push(f);
     console.log(
       `  [${drift.length ? "REPAIR" : "ok    "}] ${p.title}` +
         (drift.length ? `  ${drift.join(", ")}` : ""),
@@ -178,7 +205,7 @@ for (const p of VINTAGE_PRODUCTS) {
         title: p.title,
         handle: p.handle,
         descriptionHtml: p.descriptionHtml,
-        vendor: p.vendor,
+        vendor: vendorFor(p),
         productType: p.productType,
         tags: p.tags,
         status: "ACTIVE",
@@ -248,6 +275,31 @@ for (const p of VINTAGE_PRODUCTS) {
     const aerrs = ares.inventoryActivate.userErrors;
     if (aerrs?.length) {
       console.log(`    ! inventory: ${aerrs.map((e) => e.message).join("; ")}`);
+    }
+  }
+
+  // Product-level fields — title, vendor, tags, SEO. Re-applied on every run so
+  // drift is repaired. Most importantly the VENDOR: Shopify silently rewrites an
+  // empty vendor to the shop name, which would imply HECCA made the piece.
+  if (existing.has(p.handle)) {
+    const pdrift = productDrift(product, p);
+    if (pdrift.length) {
+      const ures = await graphql(PRODUCT_UPDATE, {
+        product: {
+          id: product.id,
+          title: p.title,
+          vendor: vendorFor(p),
+          productType: p.productType,
+          tags: p.tags,
+          seo: { title: p.seoTitle, description: p.seoDescription },
+        },
+      });
+      const uerrs = ures.productUpdate.userErrors;
+      if (uerrs?.length) {
+        console.log(`    ! product: ${uerrs.map((e) => e.message).join("; ")}`);
+      } else {
+        console.log(`    ↻ product: ${pdrift.join(", ")}`);
+      }
     }
   }
 

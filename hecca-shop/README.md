@@ -154,6 +154,11 @@ These are all live-schema behaviours that the public docs get wrong or omit. Che
   it every call fails with `compareQuantity argument must be given`.
 - **Cost limits are real.** `fetch-catalog.mjs` page sizes are load-bearing; a query over
   the 1000-point cost budget fails with `MAX_COST_EXCEEDED`.
+- **An empty `vendor` is silently replaced with the shop name.** Passing `vendor: ""` to
+  `productCreate`/`productUpdate` does not leave the vendor blank — Shopify fills it with
+  the shop's name (`HECCA Shop`), which reads as though HECCA manufactured the piece. An
+  unbranded piece must say `"Unbranded"` explicitly. `products.mjs` falls back to
+  `"Unbranded"` and treats vendor drift as repairable via `productUpdate`.
 
 ## Collections & tagging model
 
@@ -193,6 +198,8 @@ archive pieces with a real label or era are imported.
 - Never invent provenance, era, or condition. Every claim must trace to the source listing.
 - Designer names appear as the **vendor** and as *"Vintage «Designer»"* in the title, so the
   piece sits clearly in an archive context and never implies HECCA manufactured it.
+- A piece with **no label is given `vendor: "Unbranded"`** — never an empty string, because
+  Shopify rewrites an empty vendor to the shop name and would falsely credit HECCA.
 
 Vintage stock is one-of-a-kind: quantity is always 1, and `inventoryPolicy: DENY` so a sold
 piece reads as out of stock rather than silently overselling.
@@ -221,10 +228,11 @@ Verified live (see `collections.mjs --verify` and `products.mjs --verify`):
 
 - **20 collections** — 5 category parents + 11 subcollections + 4 brand lines, all
   published to the Online Store.
-- **2 archive products**, ACTIVE, published, quantity 1, tracked, SKUs assigned, all
-  12 images re-hosted on Shopify's own CDN (Mercari is not a runtime dependency):
+- **3 archive products**, ACTIVE, published, quantity 1, tracked, SKUs assigned, all
+  20 images re-hosted on Shopify's own CDN (Mercari is not a runtime dependency):
   - Vintage Christian Lacroix Crossbody — $55.00 · `HECCA-VIN-0001`
   - Vintage Esprit 90s Wallet Purse — $48.00 · `HECCA-VIN-0002`
+  - Vintage 1990s Ring Set of Four — $68.00 · `HECCA-VIN-0003`
 - **Demo data removed.** The store shipped with Shopify's snowboard test catalog
   (17 products, 3 collections). `purge-demo.mjs` deleted all of it, so the catalog
   is now exclusively HECCA. The inventory audit reports **zero** missing SKUs,
@@ -240,7 +248,9 @@ Blocked / outstanding:
 - **Store is a dev store** on *Basic App Development*. It cannot be opened publicly
   until it is moved to a paid plan.
 - **Product copy has not been reviewed by the owner** and is currently published.
-- Mercari sweep is partial: 50 of the 118 reported listings were captured.
+- Mercari is **exhausted as a source**. The profile reports 118 items, but 68 are sold and
+  the on-sale grid caps at 50 — all 50 are captured, and only 3 cleared the archive bar.
+  Further stock has to come from elsewhere (estate sales, other vintage platforms).
 - **Rotate the app client secret** — the previous one was exposed in plain text.
 
 ### Growth path (not yet needed)

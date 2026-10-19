@@ -78,4 +78,40 @@ export const VINTAGE_PRODUCTS = [
       { src: "https://u-mercari-images.mercdn.net/photos/m46466867967_5.jpg", alt: "Vintage Esprit 90s wallet purse, full view" },
     ],
   },
+  {
+    handle: "vintage-1990s-ring-set-of-four",
+    title: "Vintage 1990s Ring Set of Four",
+    // No label on this piece. NOTE: Shopify silently replaces an EMPTY vendor
+    // with the shop name ("HECCA Shop"), which would imply we manufactured it,
+    // so a vendor must always be set explicitly.
+    vendor: "Unbranded",
+    productType: "Rings",
+    sku: "HECCA-VIN-0003",
+    price: "68.00",
+    tags: ["vintage:jewelry", "jewelry:rings"],
+    seoTitle: "Vintage 1990s Ring Set of Four — HECCA",
+    seoDescription:
+      "A 1990s set of four rings: two bands in black and white/cream, a heart motif and a flower motif. Sizes 8½ and 7. Single set available.",
+    descriptionHtml: `<p>A set of four rings from the <strong>1990s</strong>, kept together as they were found.</p>
+<p>The set pairs two bands — one black, one white/cream — with a heart motif and a flower motif. The bands are size 8½; the heart and flower rings are size 7.</p>
+<p>Sourced as a single set — one available.</p>
+<h4>Details</h4>
+<ul>
+  <li><strong>Era</strong> 1990s</li>
+  <li><strong>Set</strong> Four rings — black, white/cream, heart, flower</li>
+  <li><strong>Sizes</strong> Bands 8½; heart and flower 7</li>
+  <li><strong>Condition</strong> Vintage, pre-owned</li>
+</ul>
+<p><em>A note on vintage: archive pieces carry the character of their age. We describe each one honestly and photograph it as it is.</em></p>`,
+    images: [
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_1.jpg", alt: "Vintage 1990s ring set of four, view 1" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_2.jpg", alt: "Vintage 1990s ring set of four, view 2" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_3.jpg", alt: "Vintage 1990s ring set of four, view 3" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_4.jpg", alt: "Vintage 1990s ring set of four, view 4" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_5.jpg", alt: "Vintage 1990s ring set of four, view 5" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_6.jpg", alt: "Vintage 1990s ring set of four, view 6" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_7.jpg", alt: "Vintage 1990s ring set of four, view 7" },
+      { src: "https://u-mercari-images.mercdn.net/photos/m29777261187_8.jpg", alt: "Vintage 1990s ring set of four, view 8" },
+    ],
+  },
 ];
