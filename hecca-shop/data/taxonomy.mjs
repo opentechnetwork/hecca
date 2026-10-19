@@ -21,8 +21,11 @@
 // scripts/collections.mjs. Add a child here and the parent's rule set is
 // rewritten automatically; a product never carries a separate "parent" tag.
 //
-// NOTE: we started with 2 subcollections per category. The rest live in each
-// category's `deferred` array — move them into `children` when you want them.
+// NOTE: we began with 2 subcollections per category, with the rest in each
+// category's `deferred` array. The general-catalogue import (data/mercari-products.mjs)
+// promoted the subcollections it needed and added Beauty, Shoes, Lingerie, Hair,
+// and Charms. Whatever is still in `deferred` remains unwired — move an entry into
+// `children` and re-run collections.mjs to activate it.
 
 export const TAXONOMY = {
   categories: [
@@ -37,13 +40,14 @@ export const TAXONOMY = {
           description: "Bold signets, stacked bands, and stone-set statements." },
         { name: "Necklaces", handle: "jewelry-necklaces", tag: "jewelry:necklaces",
           description: "Layered chains, pendants, and collars built to catch light." },
-      ],
-      deferred: [
-        { name: "Bracelets", handle: "jewelry-bracelets", tag: "jewelry:bracelets",
-          description: "Cuffs, bangles, and linked pieces with real weight and presence." },
         { name: "Earrings", handle: "jewelry-earrings", tag: "jewelry:earrings",
           description: "From architectural studs to floor-length statement drops." },
+        { name: "Bracelets", handle: "jewelry-bracelets", tag: "jewelry:bracelets",
+          description: "Cuffs, bangles, and linked pieces with real weight and presence." },
+        { name: "Charms", handle: "jewelry-charms", tag: "jewelry:charms",
+          description: "Small pieces made to be added to a chain or a cuff." },
       ],
+      deferred: [],
     },
     {
       name: "Apparel",
@@ -54,18 +58,22 @@ export const TAXONOMY = {
       children: [
         { name: "Shirts", handle: "apparel-shirts", tag: "apparel:shirts",
           description: "Woven shirting in silk, poplin, and heavy cotton." },
-        { name: "Shorts", handle: "apparel-shorts", tag: "apparel:shorts",
-          description: "Tailored and relaxed cuts built for heat." },
-      ],
-      deferred: [
         { name: "Tops", handle: "apparel-tops", tag: "apparel:tops",
           description: "Bodies, tanks, and second-skin layers." },
-        { name: "Dresses", handle: "apparel-dresses", tag: "apparel:dresses",
-          description: "Floor-length, sheer, and structured silhouettes." },
         { name: "Bottoms", handle: "apparel-bottoms", tag: "apparel:bottoms",
           description: "Trousers and denim with deliberate drape." },
+        { name: "Dresses", handle: "apparel-dresses", tag: "apparel:dresses",
+          description: "Floor-length, sheer, and structured silhouettes." },
+        { name: "Shorts", handle: "apparel-shorts", tag: "apparel:shorts",
+          description: "Tailored and relaxed cuts built for heat." },
         { name: "Outerwear", handle: "apparel-outerwear", tag: "apparel:outerwear",
           description: "Coats and jackets that carry the room." },
+        { name: "Shoes", handle: "apparel-shoes", tag: "apparel:shoes",
+          description: "Footwear chosen for line and proportion." },
+        { name: "Lingerie", handle: "apparel-lingerie", tag: "apparel:lingerie",
+          description: "Intimates and foundational layers." },
+      ],
+      deferred: [
         { name: "Suiting", handle: "apparel-suiting", tag: "apparel:suiting",
           description: "Heavy woven suiting and precision-cut tailoring." },
         { name: "Knitwear", handle: "apparel-knitwear", tag: "apparel:knitwear",
@@ -82,10 +90,12 @@ export const TAXONOMY = {
           description: "Structured, handheld, and shoulder pieces." },
         { name: "Belts", handle: "accessories-belts", tag: "accessories:belts",
           description: "Hardware-forward leather and statement buckles." },
-      ],
-      deferred: [
         { name: "Hats", handle: "accessories-hats", tag: "accessories:hats",
           description: "Headwear with shape and attitude." },
+        { name: "Hair", handle: "accessories-hair", tag: "accessories:hair",
+          description: "Headbands, ties, and finishing pieces for hair." },
+      ],
+      deferred: [
         { name: "Scarves", handle: "accessories-scarves", tag: "accessories:scarves",
           description: "Silk, print, and oversized wraps." },
         { name: "Eyewear", handle: "accessories-eyewear", tag: "accessories:eyewear",
@@ -113,6 +123,21 @@ export const TAXONOMY = {
         { name: "Wall Art", handle: "home-decor-wall-art", tag: "home-decor:wall-art",
           description: "Statement pieces for the wall." },
       ],
+    },
+    {
+      name: "Beauty",
+      handle: "beauty",
+      tagPrefix: "beauty:",
+      description: "Skin, colour, and scent — a small edit of unused and pre-owned pieces.",
+      children: [
+        { name: "Skincare", handle: "beauty-skincare", tag: "beauty:skincare",
+          description: "Masks, lotions, toners, and treatments." },
+        { name: "Makeup", handle: "beauty-makeup", tag: "beauty:makeup",
+          description: "Base, colour, and nails." },
+        { name: "Tools", handle: "beauty-tools", tag: "beauty:tools",
+          description: "Brushes and instruments." },
+      ],
+      deferred: [],
     },
   ],
 

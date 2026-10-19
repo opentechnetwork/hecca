@@ -27,8 +27,12 @@ const VERIFY = process.argv.includes("--verify");
 const fileArg = process.argv.indexOf("--file");
 const FILE = fileArg !== -1 ? process.argv[fileArg + 1] : "../data/vintage-products.mjs";
 
-const { VINTAGE_PRODUCTS } = await import(FILE);
-const HANDLES = new Set(VINTAGE_PRODUCTS.map((p) => p.handle));
+const DEFINITION_MODULE = await import(FILE);
+const PRODUCTS = Object.values(DEFINITION_MODULE).find(Array.isArray);
+if (!Array.isArray(PRODUCTS) || !PRODUCTS.length) {
+  throw new Error(`${FILE} must export a non-empty array of products`);
+}
+const HANDLES = new Set(PRODUCTS.map((p) => p.handle));
 
 const Q = (s) => `query { ${s} }`;
 
@@ -119,6 +123,8 @@ const vendorFor = (p) => p.vendor || "Unbranded";
 /** Drift in the product-level fields (as opposed to the variant). */
 function productDrift(live, p) {
   const d = [];
+  const want = p.status ?? "ACTIVE";
+  if ((live.status ?? "") !== want) d.push(`status ${live.status} → ${want}`);
   if (live.title !== p.title) d.push("title");
   if ((live.vendor ?? "") !== vendorFor(p)) {
     d.push(`vendor "${live.vendor ?? "—"}" → "${vendorFor(p)}"`);
@@ -160,7 +166,7 @@ console.log(`Definition file: ${FILE}`);
 console.log(`Location:        ${ctx.location ? `${ctx.location.name} (${ctx.location.id})` : "⚠ none found"}`);
 console.log(`Online Store:    ${ctx.online ? ctx.online.id : "⚠ not found"}\n`);
 
-for (const p of VINTAGE_PRODUCTS) {
+for (const p of PRODUCTS) {
   const hit = existing.get(p.handle);
   if (!hit) {
     console.log(`  [NEW   ] ${p.title}  $${p.price}  ${p.images.length} image(s)`);
@@ -172,7 +178,7 @@ for (const p of VINTAGE_PRODUCTS) {
     if (v.inventoryQuantity !== 1) drift.push(`qty ${v.inventoryQuantity} → 1`);
     if (v.inventoryItem?.sku !== p.sku) drift.push(`sku ${v.inventoryItem?.sku || "—"} → ${p.sku}`);
     if (!v.inventoryItem?.tracked) drift.push("tracking off → on");
-    if (!hit.publishedAt) drift.push("unpublished → published");
+    if ((p.status ?? "ACTIVE") === "ACTIVE" && !hit.publishedAt) drift.push("unpublished → published");
     for (const f of productDrift(hit, p)) drift.push(f);
     console.log(
       `  [${drift.length ? "REPAIR" : "ok    "}] ${p.title}` +
@@ -195,7 +201,7 @@ let created = 0;
 let repaired = 0;
 let failed = 0;
 
-for (const p of VINTAGE_PRODUCTS) {
+for (const p of PRODUCTS) {
   let product = existing.get(p.handle);
   let variant;
 
@@ -208,7 +214,7 @@ for (const p of VINTAGE_PRODUCTS) {
         vendor: vendorFor(p),
         productType: p.productType,
         tags: p.tags,
-        status: "ACTIVE",
+        status: p.status ?? "ACTIVE",
         seo: { title: p.seoTitle, description: p.seoDescription },
       },
       media: p.images.map((img) => ({
@@ -303,7 +309,7 @@ for (const p of VINTAGE_PRODUCTS) {
     }
   }
 
-  if (ctx.online) {
+  if ((p.status ?? "ACTIVE") === "ACTIVE" && ctx.online) {
     const pres = await graphql(PUBLISH, { id: product.id, input: [{ publicationId: ctx.online.id }] });
     const perrs = pres.publishablePublish.userErrors;
     if (perrs?.length) console.log(`    ! publish: ${perrs.map((e) => e.message).join("; ")}`);
