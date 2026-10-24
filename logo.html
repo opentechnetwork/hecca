@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HECCA — Logo System v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --gold:#D4A64A;
+    --gold-hi:#EFD49A;
+    --gold-lo:#B4863A;
+    --black:#0F0F0F;
+    --white:#F7F7F7;
+    --pink:#E84C7F;
+    --tan:#C8A97E;
+    --beige:#F5E9D2;
+    --plum:#5C2D5C;
+    --emerald:#1F5F4A;
+    --emerald-hi:#3E8C6E;
+    --card:#151515;
+    --line:rgba(212,166,74,.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--black);color:var(--white);
+    font-family:'Montserrat',Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Cormorant Garamond',Georgia,serif}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 32px;
+    background:rgba(15,15,15,.92);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(12px);
+  }
+  .tb-mark{
+    font-family:'Cormorant Garamond',serif;font-weight:700;
+    letter-spacing:.26em;font-size:15px;color:var(--gold);
+    padding-left:.26em;
+  }
+  .tb-label{
+    font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(247,247,247,.45);
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;min-height:92vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:80px 24px;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 45%, rgba(92,45,92,.55) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 35% at 50% 50%, rgba(212,166,74,.10) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+  .eyebrow{
+    font-size:9px;letter-spacing:.45em;text-transform:uppercase;
+    color:rgba(247,247,247,.45);margin-bottom:44px;
+  }
+  .stamp{
+    margin-top:64px;display:flex;gap:10px;align-items:center;
+    font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(247,247,247,.35);
+  }
+  .stamp i{width:22px;height:1px;background:rgba(212,166,74,.4);display:block}
+
+  /* ============ LOCKUP PRIMITIVES ============ */
+  .lockup{display:flex;flex-direction:column;align-items:center;gap:0}
+  .crest{
+    position:relative;
+    width:1em;height:1em;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:grid;place-items:center;
+    flex:none;
+  }
+  .crest::before{
+    content:'';position:absolute;inset:12%;
+    border-radius:50%;border:1px solid rgba(212,166,74,.42);
+  }
+  .crest-h{
+    font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:.46em;line-height:1;color:var(--gold);
+    padding-top:.02em;
+  }
+  .wordmark{
+    font-family:'Cormorant Garamond',serif;font-weight:700;
+    letter-spacing:.34em;padding-left:.34em;line-height:1;
+    color:var(--gold);white-space:nowrap;
+  }
+  .tagline{
+    font-size:8px;letter-spacing:.52em;padding-left:.52em;
+    text-transform:uppercase;font-weight:500;
+    color:rgba(200,169,126,.85);white-space:nowrap;
+  }
+  .hair{
+    height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+
+  /* ---- glow treatments ---- */
+  [data-glow="plum"]{
+    --g1:rgba(239,212,154,.9);
+    --g2:rgba(212,166,74,.55);
+    --g3:rgba(92,45,92,.85);
+    --g4:rgba(92,45,92,.5);
+  }
+  [data-glow="emerald"]{
+    --g1:rgba(239,212,154,.9);
+    --g2:rgba(212,166,74,.5);
+    --g3:rgba(62,140,110,.8);
+    --g4:rgba(31,95,74,.55);
+  }
+  [data-glow="dual"]{
+    --g1:rgba(247,247,247,.9);
+    --g2:rgba(92,45,92,.8);
+    --g3:rgba(31,95,74,.75);
+    --g4:rgba(92,45,92,.35);
+  }
+  [data-glow="flat"]{
+    --g1:transparent;--g2:transparent;--g3:transparent;--g4:transparent;
+  }
+  [data-glow="gold"]{
+    --g1:rgba(239,212,154,.9);
+    --g2:rgba(212,166,74,.55);
+    --g3:rgba(212,166,74,.35);
+    --g4:rgba(212,166,74,.18);
+  }
+  [data-glow] .wordmark, .wordmark[data-glow]{
+    text-shadow:
+      0 0 1px var(--g1),
+      0 0 14px var(--g2),
+      0 0 36px var(--g3),
+      0 0 88px var(--g4);
+  }
+  [data-glow] .crest, .crest[data-glow]{
+    box-shadow:
+      0 0 18px var(--g2),
+      0 0 46px var(--g3),
+      0 0 90px var(--g4),
+      inset 0 0 22px var(--g4);
+  }
+  [data-glow] .crest-h, .crest[data-glow] .crest-h{
+    text-shadow:0 0 12px var(--g2), 0 0 30px var(--g3);
+  }
+  /* dual jewel reads as two separate light sources, not a single halo */
+  [data-glow="dual"] .wordmark{
+    text-shadow:
+      -16px 0 44px rgba(92,45,92,.95),
+      16px 0 44px rgba(31,95,74,.95),
+      0 0 80px rgba(92,45,92,.45),
+      0 0 2px rgba(247,247,247,.55);
+  }
+
+  /* sizes */
+  .lx{--crest-size:60px}
+  .lx .crest{font-size:var(--crest-size)}
+  .lx .wordmark{font-size:30px}
+
+  /* ---- stacked (hero) ---- */
+  .lockup.stacked .crest{font-size:clamp(64px,9vw,104px);margin-bottom:38px}
+  .lockup.stacked .wordmark{font-size:clamp(42px,8.5vw,78px);letter-spacing:.30em;padding-left:.30em}
+  .lockup.stacked .wordmark + .hair{width:100%;margin:26px 0 20px}
+  .lockup.stacked .tagline{font-size:11px;letter-spacing:.62em;padding-left:.62em}
+
+  /* ---- horizontal ---- */
+  .lockup.horizontal{
+    flex-direction:row;align-items:center;gap:14px;
+  }
+  .lockup.horizontal .crest{font-size:44px;margin-bottom:0}
+  .lockup.horizontal .wordmark{font-size:26px;letter-spacing:.30em;padding-left:.30em}
+  .lockup.horizontal .stack{display:flex;flex-direction:column;gap:4px}
+  .lockup.horizontal .tagline{font-size:6.5px;letter-spacing:.46em;padding-left:.46em}
+
+  /* ============ SECTION SHELL ============ */
+  section.block{
+    max-width:1180px;margin:0 auto;padding:96px 32px;
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+  .sec-head{margin-bottom:48px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  .sec-num{
+    font-family:'Cormorant Garamond',serif;font-size:13px;
+    color:var(--gold);letter-spacing:.2em;
+  }
+  .sec-title{
+    font-family:'Cormorant Garamond',serif;font-size:30px;
+    font-weight:600;letter-spacing:.12em;color:var(--gold);
+  }
+  .sec-note{
+    font-size:11px;line-height:1.8;color:rgba(247,247,247,.5);
+    max-width:540px;margin-left:auto;
+  }
+
+  /* ============ GRIDS ============ */
+  .grid{display:grid;gap:20px}
+  .g-3{grid-template-columns:repeat(3,1fr)}
+  .g-2{grid-template-columns:repeat(2,1fr)}
+  .g-5{grid-template-columns:repeat(5,1fr)}
+  @media(max-width:900px){.g-3,.g-5{grid-template-columns:repeat(2,1fr)}.g-2{grid-template-columns:1fr}}
+  @media(max-width:560px){.g-3,.g-5{grid-template-columns:1fr}}
+
+  .tile{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:4px;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    text-decoration:none;color:inherit;
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .tile:hover{border-color:var(--line);transform:translateY(-2px)}
+  .tile-stage{
+    flex:1;min-height:206px;
+    display:flex;align-items:center;justify-content:center;
+    padding:36px 20px;position:relative;
+  }
+  .tile-meta{
+    border-top:1px solid rgba(255,255,255,.07);
+    padding:14px 16px;display:flex;justify-content:space-between;
+    align-items:baseline;gap:10px;
+  }
+  .tile-name{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--white)}
+  .tile-desc{font-size:9px;letter-spacing:.1em;color:rgba(247,247,247,.4);text-align:right}
+  .badge{
+    position:absolute;top:12px;left:12px;
+    font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+    padding:4px 8px;border-radius:2px;
+    background:rgba(212,166,74,.14);color:var(--gold);
+    border:1px solid rgba(212,166,74,.3);
+  }
+
+  /* colourway stages */
+  .stage-black{background:var(--black)}
+  .stage-plum{background:radial-gradient(ellipse at 50% 40%,#6B356B,#4A234A 70%,#3A1B3A)}
+  .stage-emerald{background:radial-gradient(ellipse at 50% 40%,#2A7A5E,#1F5F4A 70%,#174738)}
+  .stage-beige{background:var(--beige)}
+  .stage-white{background:var(--white)}
+  .stage-plum .wordmark,.stage-plum .crest-h{color:var(--gold)}
+  .stage-emerald .wordmark,.stage-emerald .crest-h{color:var(--gold)}
+
+  .mono-black .wordmark,.mono-black .crest-h{color:var(--black);text-shadow:none}
+  .mono-black .crest{border-color:var(--black);box-shadow:none}
+  .mono-black .crest::before{border-color:rgba(15,15,15,.4)}
+  .mono-black .tagline{color:rgba(15,15,15,.55)}
+
+  .mono-white .wordmark,.mono-white .crest-h{color:var(--white);text-shadow:none}
+  .mono-white .crest{border-color:var(--white);box-shadow:none}
+  .mono-white .crest::before{border-color:rgba(247,247,247,.45)}
+  .mono-white .tagline{color:rgba(247,247,247,.55)}
+
+  /* ============ HEADER PREVIEW ============ */
+  .preview-shell{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:6px;overflow:hidden;background:var(--black);
+  }
+  .mock-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;border-bottom:1px solid rgba(212,166,74,.18);
+  }
+  .mock-nav{display:flex;gap:26px}
+  .mock-nav span{
+    font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(247,247,247,.55);
+  }
+  .mock-body{
+    padding:70px 28px;text-align:center;
+    background:
+      radial-gradient(ellipse 50% 70% at 50% 0%, rgba(92,45,92,.28), transparent 70%),
+      var(--black);
+  }
+  .mock-body .display{
+    font-size:34px;font-weight:600;letter-spacing:.16em;color:var(--white);
+  }
+  .mock-body p{
+    font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(200,169,126,.7);margin-top:12px;
+  }
+  .mock-footer{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 28px;border-top:1px solid rgba(212,166,74,.18);
+  }
+  .mock-footer small{
+    font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(247,247,247,.3);
+  }
+
+  /* ============ RULES ============ */
+  .rules{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.07);border-radius:4px;overflow:hidden;
+  }
+  @media(max-width:760px){.rules{grid-template-columns:1fr}}
+  .rule-cell{background:var(--card);padding:26px 24px}
+  .rule-cell h4{
+    font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:10px;font-weight:600;
+  }
+  .rule-cell p{font-size:11.5px;line-height:1.75;color:rgba(247,247,247,.62)}
+  .dont{color:rgba(247,247,247,.42)}
+
+  /* clear space diagram */
+  .clearspace{
+    display:flex;align-items:center;justify-content:center;
+    padding:44px;background:var(--card);border-radius:4px;
+    border:1px solid rgba(255,255,255,.07);
+  }
+  .cs-box{
+    position:relative;padding:52px 56px 40px;
+    border:1px dashed rgba(212,166,74,.45);
+  }
+  .cs-label{
+    position:absolute;font-size:8px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(212,166,74,.7);
+  }
+
+  footer.page-foot{
+    padding:56px 32px;text-align:center;
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+  footer.page-foot p{
+    font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(247,247,247,.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="tb-mark">HECCA</span>
+  <span class="tb-label">Logo System — v2.0</span>
+</div>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">The Primary Mark</p>
+
+    <div class="lockup stacked" data-glow="plum">
+      <div class="crest"><span class="crest-h">H</span></div>
+      <div class="wordmark">HECCA</div>
+      <div class="hair"></div>
+      <div class="tagline">Hybrid Luxury</div>
+    </div>
+
+    <div class="stamp">
+      <i></i><span>Hybrid Gold · Deep Plum halo · Deep Black</span><i></i>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 GLOW OPTIONS ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">The Glow</h2>
+    <p class="sec-note">
+      The wordmark stays Hybrid Gold in every option — gold is the constant. The halo
+      is what changes. Pick one and it becomes the signature treatment.
+    </p>
+  </div>
+
+  <div class="grid g-3">
+    <div class="tile">
+      <div class="badge">Proposed</div>
+      <div class="tile-stage stage-black">
+        <div class="lockup lx" data-glow="plum">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">A · Plum Halo</span>
+        <span class="tile-desc">Gold + Plum</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="lockup lx" data-glow="emerald">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">B · Emerald Halo</span>
+        <span class="tile-desc">Gold + Emerald</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="lockup lx" data-glow="dual">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">C · Dual Jewel</span>
+        <span class="tile-desc">Plum + Emerald</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="lockup lx" data-glow="gold">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">D · Gold Halo</span>
+        <span class="tile-desc">Warm, original</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="lockup lx" data-glow="flat">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">E · No Glow</span>
+        <span class="tile-desc">Flat gold</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-emerald">
+        <div class="lockup lx" data-glow="emerald">
+          <div class="crest" style="margin-bottom:20px"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">F · Emerald Field</span>
+        <span class="tile-desc">Reverse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 LOCKUPS ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Lockups</h2>
+    <p class="sec-note">
+      Four approved arrangements. Everything else is a resize of one of these.
+    </p>
+  </div>
+
+  <div class="grid g-2">
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="lockup horizontal" data-glow="plum">
+          <div class="crest"><span class="crest-h">H</span></div>
+          <div class="stack">
+            <div class="wordmark">HECCA</div>
+            <div class="tagline">Hybrid Luxury</div>
+          </div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">Horizontal</span>
+        <span class="tile-desc">Store header · receipts</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black" style="min-height:250px">
+        <div class="lockup stacked" data-glow="plum" style="transform:scale(.5)">
+          <div class="crest"><span class="crest-h">H</span></div>
+          <div class="wordmark">HECCA</div>
+          <div class="hair"></div>
+          <div class="tagline">Hybrid Luxury</div>
+        </div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">Stacked</span>
+        <span class="tile-desc">Hero · packaging · social</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="wordmark" data-glow="plum" style="font-size:44px;color:var(--gold)">HECCA</div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">Wordmark</span>
+        <span class="tile-desc">Email · embroidery · tight space</span>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black">
+        <div class="crest" data-glow="plum" style="font-size:104px"><span class="crest-h">H</span></div>
+      </div>
+      <div class="tile-meta">
+        <span class="tile-name">Monogram</span>
+        <span class="tile-desc">Favicon · app icon · hardware</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 COLOURWAYS ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Colourways</h2>
+    <p class="sec-note">
+      Five approved backgrounds. No other combinations — this is what keeps the mark
+      consistent across the store, packaging, and print.
+    </p>
+  </div>
+
+  <div class="grid g-3">
+    <div class="tile">
+      <div class="tile-stage stage-black" style="min-height:190px">
+        <div class="wordmark" data-glow="plum" style="font-size:38px;color:var(--gold)">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">Gold on Black</span><span class="tile-desc">Primary</span></div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-black mono-white" style="min-height:190px">
+        <div class="wordmark" style="font-size:38px">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">White on Black</span><span class="tile-desc">1-colour reverse</span></div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-beige mono-black" style="min-height:190px">
+        <div class="wordmark" style="font-size:38px">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">Black on Beige</span><span class="tile-desc">Print · tissue</span></div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-plum" style="min-height:190px">
+        <div class="wordmark" style="font-size:38px;text-shadow:0 0 30px rgba(212,166,74,.45)">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">Gold on Plum</span><span class="tile-desc">Campaign</span></div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-emerald" style="min-height:190px">
+        <div class="wordmark" style="font-size:38px;text-shadow:0 0 30px rgba(212,166,74,.4)">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">Gold on Emerald</span><span class="tile-desc">Campaign</span></div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-stage stage-white mono-black" style="min-height:190px">
+        <div class="wordmark" style="font-size:38px">HECCA</div>
+      </div>
+      <div class="tile-meta"><span class="tile-name">Black on White</span><span class="tile-desc">Documents · invoices</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 IN CONTEXT ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">In Context</h2>
+    <p class="sec-note">
+      The horizontal lockup at real store size — 26px wordmark, 44px crest.
+    </p>
+  </div>
+
+  <div class="preview-shell">
+    <div class="mock-header">
+      <div class="lockup horizontal" data-glow="plum" style="transform:scale(.82);transform-origin:left center">
+        <div class="crest"><span class="crest-h">H</span></div>
+        <div class="stack">
+          <div class="wordmark">HECCA</div>
+          <div class="tagline">Hybrid Luxury</div>
+        </div>
+      </div>
+      <div class="mock-nav">
+        <span>Jewelry</span><span>Apparel</span><span>Accessories</span><span>Vintage</span><span>Beauty</span>
+      </div>
+    </div>
+
+    <div class="mock-body">
+      <div class="display">Where Culture Meets Couture</div>
+      <p>Hecca Shop — Est. 2026</p>
+    </div>
+
+    <div class="mock-footer">
+      <div class="lockup horizontal" data-glow="plum" style="transform:scale(.62);transform-origin:left center">
+        <div class="crest"><span class="crest-h">H</span></div>
+        <div class="stack">
+          <div class="wordmark">HECCA</div>
+        </div>
+      </div>
+      <small>© HECCA — The Standard of Hybrid Luxury</small>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 RULES ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Usage</h2>
+  </div>
+
+  <div class="clearspace" style="margin-bottom:20px">
+    <div class="cs-box">
+      <span class="cs-label" style="top:8px;left:8px">Clear space = 1 × cap height</span>
+      <div class="lockup horizontal" data-glow="plum" style="transform:scale(.9)">
+        <div class="crest"><span class="crest-h">H</span></div>
+        <div class="stack">
+          <div class="wordmark">HECCA</div>
+          <div class="tagline">Hybrid Luxury</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rules">
+    <div class="rule-cell">
+      <h4>Minimum size</h4>
+      <p>24px crest height on screen. 0.5in on print. Below that, use the monogram alone.</p>
+    </div>
+    <div class="rule-cell">
+      <h4>Clear space</h4>
+      <p>One full letter-height of empty space on all four sides. Nothing crosses it — no text, no borders, no product edges.</p>
+    </div>
+    <div class="rule-cell">
+      <h4>Approved backgrounds</h4>
+      <p>Deep Black, Soft White, Stripe Beige, Deep Plum, Emerald. Photography only where contrast is verified.</p>
+    </div>
+    <div class="rule-cell">
+      <h4>Glow</h4>
+      <p>One halo only, never both. Glow is for screen, foil, and signage — not for embroidery or small print.</p>
+    </div>
+    <div class="rule-cell">
+      <h4>Gold is constant</h4>
+      <p>The wordmark is never recoloured to pink, plum, emerald, or tan. Those are halo and field colours only.</p>
+    </div>
+    <div class="rule-cell">
+      <h4 class="dont">Not permitted</h4>
+      <p class="dont">No stretching, rotating, outlining, drop shadows, gradients across the letters, or added words inside the lockup.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 FILES ============ -->
+<section class="block">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Files</h2>
+    <p class="sec-note">
+      Vector SVG, transparent background, type converted to outlines — no font needed
+      to open or print these. Click any file to download.
+    </p>
+  </div>
+
+  <div class="grid g-3">
+    <a class="tile" href="logos/hecca-wordmark-plum.svg" download>
+      <div class="tile-stage stage-black" style="min-height:170px">
+        <img src="logos/hecca-wordmark-plum.svg" alt="HECCA wordmark with plum glow" style="max-width:100%;max-height:120px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Wordmark</span><span class="tile-desc">plum glow</span></div>
+    </a>
+
+    <a class="tile" href="logos/hecca-wordmark-flat.svg" download>
+      <div class="tile-stage stage-black" style="min-height:170px">
+        <img src="logos/hecca-wordmark-flat.svg" alt="HECCA flat gold wordmark" style="max-width:100%;max-height:120px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Wordmark</span><span class="tile-desc">flat gold</span></div>
+    </a>
+
+    <a class="tile" href="logos/hecca-wordmark-black.svg" download>
+      <div class="tile-stage stage-white" style="min-height:170px">
+        <img src="logos/hecca-wordmark-black.svg" alt="HECCA black wordmark" style="max-width:100%;max-height:120px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Wordmark</span><span class="tile-desc">black · print</span></div>
+    </a>
+
+    <a class="tile" href="logos/hecca-lockup-horizontal-plum.svg" download>
+      <div class="tile-stage stage-black" style="min-height:170px">
+        <img src="logos/hecca-lockup-horizontal-plum.svg" alt="HECCA horizontal lockup" style="max-width:100%;max-height:100px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Horizontal</span><span class="tile-desc">header</span></div>
+    </a>
+
+    <a class="tile" href="logos/hecca-lockup-stacked-plum.svg" download>
+      <div class="tile-stage stage-black" style="min-height:170px">
+        <img src="logos/hecca-lockup-stacked-plum.svg" alt="HECCA stacked lockup" style="max-width:100%;max-height:150px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Stacked</span><span class="tile-desc">hero · packaging</span></div>
+    </a>
+
+    <a class="tile" href="logos/hecca-monogram-plum.svg" download>
+      <div class="tile-stage stage-black" style="min-height:170px">
+        <img src="logos/hecca-monogram-plum.svg" alt="HECCA monogram" style="max-width:100%;max-height:140px" />
+      </div>
+      <div class="tile-meta"><span class="tile-name">Monogram</span><span class="tile-desc">favicon</span></div>
+    </a>
+  </div>
+</section>
+
+<footer class="page-foot">
+  <p>HECCA — Logo System v2.0 · Hybrid Gold #D4A64A · Deep Plum #5C2D5C · Emerald #1F5F4A</p>
+</footer>
+
+</body>
+</html>
