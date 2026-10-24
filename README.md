@@ -39,6 +39,22 @@ node scripts/build-logos.mjs
 `logos/hecca-paths.mjs` holds the generated outline data (Cormorant Garamond 700).
 To rasterize PNGs, `npm i sharp` then run the rasterizer.
 
+## Collection images
+
+`hecca-shop/assets/collections/` holds the 2048 square plates used as Shopify
+collection images: black field, hairline gold frame, crest, collection name and
+a one-line label of what is inside. Ten plates — the six categories, Vintage and
+the four brand lines.
+
+```
+node scripts/build-collection-images.mjs                    # all, recommended style
+node scripts/build-collection-images.mjs --only=jewelry --all-variants
+```
+
+Variants: `a` type only, `b` crest + halo (default), `c` solid colour field.
+Type comes from `logos/hecca-glyphs.mjs`, so no fonts are needed to build them.
+Rasterize the SVGs to 2048 PNG before uploading.
+
 
 ## Secrets
 
