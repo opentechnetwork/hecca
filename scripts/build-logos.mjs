@@ -48,6 +48,9 @@ const GLOWS = {
 const EM = FONT.sourceSize; // 200
 const CAP = (FONT.capHeight / FONT.unitsPerEm) * EM; // 125
 const TAG_CAP = (TAGLINE_FONT.capHeight / TAGLINE_FONT.unitsPerEm) * TAGLINE_FONT.sourceSize; // 140
+// Crest diameter as a multiple of the wordmark's em size, so the mark always
+// reads larger than the word.
+const CREST_RATIO = 1.6;
 const f = (v) => Number(v.toFixed(2));
 
 /* ---------- glow ---------- */
@@ -124,13 +127,16 @@ function placeTagline(x, cy, targetWidth, fill) {
 
 /** Crest: ring + monogram H, centred on (cx, cy) with radius r. */
 function placeCrest(cx, cy, r, opts = {}) {
-  const { color = C.gold, ring = 3, inner = 1.5, hScale = 0.7, glow = true } = opts;
-  const cap = CAP * hScale;
+  const { color = C.gold, hRatio = 0.46, glow = true } = opts;
+  const stroke = opts.ring ?? f(r * 0.042);
+  const inner = opts.inner ?? f(stroke * 0.5);
+  const cap = 2 * r * hRatio;
+  const hScale = cap / CAP;
   const hx = cx - (MONOGRAM.bbox.width * hScale) / 2 - MONOGRAM.bbox.minX * hScale;
   const baseline = cy + cap / 2;
   const halos = glow
-    ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${f(ring * 3)}" opacity="0.3" filter="url(#crestGlow)"/>
-  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${f(ring * 1.7)}" opacity="0.4" filter="url(#crestGlowSm)"/>`
+    ? `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${f(stroke * 3)}" opacity="0.3" filter="url(#crestGlow)"/>
+  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${f(stroke * 1.7)}" opacity="0.4" filter="url(#crestGlowSm)"/>`
     : "";
   return {
     defs: glow
@@ -142,7 +148,7 @@ function placeCrest(cx, cy, r, opts = {}) {
     </filter>`
       : "",
     markup: `${halos}
-  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${ring}"/>
+  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}"/>
   <circle cx="${cx}" cy="${cy}" r="${f(r * 0.88)}" fill="none" stroke="${color}" stroke-width="${inner}" opacity="0.45"/>
   <g transform="translate(${f(hx)} ${f(baseline)}) scale(${f(hScale)})">
     <path d="${MONOGRAM.d}" fill="${color}"/>
@@ -179,10 +185,12 @@ function buildWordmark(glowName, fill, pad = 64) {
 
 function buildHorizontal(glowName, fill, pad = 56) {
   const glows = GLOWS[glowName];
-  const r = 72;
-  const gap = 34;
+  const wmScale = 0.86;
+  const d = EM * wmScale * CREST_RATIO;
+  const r = d / 2;
+  const gap = d * 0.18;
   const c = placeCrest(r, r, r, { color: fill, glow: glowName !== "none" });
-  const wm = placeWordmark(r * 2 + gap, r, 0.86, fill, glows, "wm");
+  const wm = placeWordmark(d + gap, r, wmScale, fill, glows, "wm");
   return svg({
     box: frame([c.box, wm.box], pad),
     defs: `${filterDefs(glows, "wm")}\n    ${c.defs}`,
@@ -193,22 +201,35 @@ function buildHorizontal(glowName, fill, pad = 56) {
 
 function buildHorizontalTagline(glowName, fill, pad = 56) {
   const glows = GLOWS[glowName];
-  const r = 72;
-  const gap = 34;
   const wmScale = 0.86;
+  const em = EM * wmScale;
+  const d = em * CREST_RATIO;
+  const r = d / 2;
+  const gap = d * 0.18;
+
   const wmCap = CAP * wmScale;
   const tagTarget = WORDMARK.advanceWidth * wmScale * 0.64;
-  const tagScale = tagTarget / TAGLINE.advanceWidth;
-  const tagCap = TAG_CAP * tagScale;
+  const tagCap = TAG_CAP * (tagTarget / TAGLINE.advanceWidth);
   const tagGap = 18;
 
+  // whole text block is centred on the crest
   const blockH = wmCap + tagGap + tagCap;
   const blockTop = r - blockH / 2;
-  const x = r * 2 + gap;
+
+  const wmLeft = d + gap;
+  // align on ink, not advance: the tagline's right edge meets the A's right edge
+  const wmInkRight = wmLeft + WORDMARK.bbox.maxX * wmScale;
+  const tagInkWidth = TAGLINE.bbox.width * (tagTarget / TAGLINE.advanceWidth);
 
   const c = placeCrest(r, r, r, { color: fill, glow: glowName !== "none" });
-  const wm = placeWordmark(x, blockTop + wmCap / 2, wmScale, fill, glows, "wm");
-  const tag = placeTagline(x, blockTop + wmCap + tagGap + tagCap / 2, tagTarget, fill);
+  const wm = placeWordmark(wmLeft, blockTop + wmCap / 2, wmScale, fill, glows, "wm");
+  // tagline sits under the wordmark, flush to the right edge of the final A
+  const tag = placeTagline(
+    wmInkRight - tagInkWidth,
+    blockTop + wmCap + tagGap + tagCap / 2,
+    tagTarget,
+    fill
+  );
 
   return svg({
     box: frame([c.box, wm.box, tag.box], pad),
@@ -220,9 +241,9 @@ function buildHorizontalTagline(glowName, fill, pad = 56) {
 
 function buildStacked(glowName, fill, pad = 56) {
   const glows = GLOWS[glowName];
-  const r = 72;
-  const gap = 30;
   const scale = 0.78;
+  const r = (EM * scale * CREST_RATIO) / 2;
+  const gap = r * 2 * 0.12;
   const wmWidth = WORDMARK.advanceWidth * scale;
   const totalW = Math.max(r * 2, wmWidth);
   const cx = totalW / 2;
@@ -239,7 +260,7 @@ function buildStacked(glowName, fill, pad = 56) {
 
 function buildMonogram(glowName, fill, pad = 44) {
   const r = 110;
-  const c = placeCrest(r, r, r, { color: fill, glow: glowName !== "none" });
+  const c = placeCrest(r, r, r, { color: fill, glow: glowName !== "none", hRatio: 0.4 });
   return svg({
     box: frame([c.box], pad),
     defs: c.defs,
@@ -255,7 +276,7 @@ function buildAppIcon() {
     glow: true,
     ring: 4,
     inner: 2,
-    hScale: 0.72,
+    hRatio: 0.35,
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" role="img" aria-labelledby="t">
   <title id="t">HECCA app icon</title>

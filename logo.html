@@ -20,6 +20,90 @@
     --emerald-hi:#3E8C6E;
     --card:#151515;
     --line:rgba(212,166,74,.28);
+
+    /* ---- Families (brand guide 05) ---- */
+    --font-display:'Cormorant Garamond', Georgia, serif;
+    --font-body:'Montserrat', Arial, sans-serif;
+
+    /* ---- Type scale, hard-coded from the brand guide's hierarchy ---- */
+    /* H1 — Hero        Cormorant Garamond 700 · 64–80px · 0.3em  */
+    --h1-size:clamp(64px, 7.2vw, 80px);
+    --h1-weight:700;
+    --h1-track:.3em;
+    --h1-leading:1.1;
+
+    /* H2 — Section     Cormorant Garamond 700 · 32–40px · 0.1em  */
+    --h2-size:clamp(32px, 3.6vw, 40px);
+    --h2-weight:700;
+    --h2-track:.1em;
+    --h2-leading:1.15;
+
+    /* Body             Montserrat 400 · 14–16px · normal        */
+    --body-size:clamp(14px, 1.15vw, 16px);
+    --body-weight:400;
+    --body-track:normal;
+    --body-leading:1.6;
+
+    /* Pull Quote       Cormorant Garamond Italic 400 · 22–28px  */
+    --quote-size:clamp(22px, 2.4vw, 28px);
+    --quote-weight:400;
+    --quote-track:normal;
+    --quote-leading:1.5;
+
+    /* Label            Montserrat 600 · 10–12px · 0.15em        */
+    --label-size:clamp(10px, .85vw, 12px);
+    --label-weight:600;
+    --label-track:.15em;
+    --label-leading:1.4;
+  }
+
+  /* ---- Type utilities: use these instead of ad-hoc sizes ---- */
+  .t-h1{
+    font-family:var(--font-display);
+    font-weight:var(--h1-weight);
+    font-size:var(--h1-size);
+    letter-spacing:var(--h1-track);
+    line-height:var(--h1-leading);
+    text-transform:uppercase;
+  }
+  .t-h2{
+    font-family:var(--font-display);
+    font-weight:var(--h2-weight);
+    font-size:var(--h2-size);
+    letter-spacing:var(--h2-track);
+    line-height:var(--h2-leading);
+    text-transform:uppercase;
+  }
+  .t-body{
+    font-family:var(--font-body);
+    font-weight:var(--body-weight);
+    font-size:var(--body-size);
+    letter-spacing:var(--body-track);
+    line-height:var(--body-leading);
+  }
+  .t-quote{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-weight:var(--quote-weight);
+    font-size:var(--quote-size);
+    letter-spacing:var(--quote-track);
+    line-height:var(--quote-leading);
+  }
+  .t-label{
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:var(--label-size);
+    letter-spacing:var(--label-track);
+    line-height:var(--label-leading);
+    text-transform:uppercase;
+  }
+  .t-label-sm{
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;
+    letter-spacing:.15em;
+    line-height:1.4;
+    text-transform:uppercase;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -46,7 +130,9 @@
     padding-left:.26em;
   }
   .tb-label{
-    font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;text-transform:uppercase;
     color:rgba(247,247,247,.45);
   }
 
@@ -65,12 +151,18 @@
   }
   .hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
   .eyebrow{
-    font-size:9px;letter-spacing:.45em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:var(--label-size);letter-spacing:var(--label-track);
+    line-height:var(--label-leading);text-transform:uppercase;
     color:rgba(247,247,247,.45);margin-bottom:44px;
   }
   .stamp{
     margin-top:64px;display:flex;gap:10px;align-items:center;
-    font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;
+    line-height:1.4;text-transform:uppercase;
     color:rgba(247,247,247,.35);
   }
   .stamp i{width:22px;height:1px;background:rgba(212,166,74,.4);display:block}
@@ -167,7 +259,7 @@
   .lx .wordmark{font-size:30px}
 
   /* ---- stacked (hero) ---- */
-  .lockup.stacked .crest{font-size:clamp(64px,9vw,104px);margin-bottom:38px}
+  .lockup.stacked .crest{font-size:clamp(67px,13.6vw,125px);margin-bottom:38px}
   .lockup.stacked .wordmark{font-size:clamp(42px,8.5vw,78px);letter-spacing:.30em;padding-left:.30em}
   .lockup.stacked .wordmark + .hair{width:100%;margin:26px 0 20px}
   .lockup.stacked .tagline{font-size:11px;letter-spacing:.62em;padding-left:.62em}
@@ -176,10 +268,14 @@
   .lockup.horizontal{
     flex-direction:row;align-items:center;gap:14px;
   }
-  .lockup.horizontal .crest{font-size:44px;margin-bottom:0}
+  .lockup.horizontal .crest{font-size:42px;margin-bottom:0}
   .lockup.horizontal .wordmark{font-size:26px;letter-spacing:.30em;padding-left:.30em}
-  .lockup.horizontal .stack{display:flex;flex-direction:column;gap:4px}
-  .lockup.horizontal .tagline{font-size:6.5px;letter-spacing:.46em;padding-left:.46em}
+  .lockup.horizontal .stack{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+  .lockup.horizontal .tagline{
+    font-size:6.5px;letter-spacing:.46em;
+    padding-left:0;padding-right:.74em;
+    text-align:right;
+  }
 
   /* ============ SECTION SHELL ============ */
   section.block{
@@ -192,12 +288,22 @@
     color:var(--gold);letter-spacing:.2em;
   }
   .sec-title{
-    font-family:'Cormorant Garamond',serif;font-size:30px;
-    font-weight:600;letter-spacing:.12em;color:var(--gold);
+    font-family:var(--font-display);
+    font-weight:var(--h2-weight);
+    font-size:var(--h2-size);
+    letter-spacing:var(--h2-track);
+    line-height:var(--h2-leading);
+    text-transform:uppercase;
+    color:var(--gold);
   }
   .sec-note{
-    font-size:11px;line-height:1.8;color:rgba(247,247,247,.5);
-    max-width:540px;margin-left:auto;
+    font-family:var(--font-body);
+    font-weight:var(--body-weight);
+    font-size:var(--body-size);
+    letter-spacing:var(--body-track);
+    line-height:var(--body-leading);
+    color:rgba(247,247,247,.5);
+    max-width:560px;margin-left:auto;
   }
 
   /* ============ GRIDS ============ */
@@ -228,11 +334,31 @@
     padding:14px 16px;display:flex;justify-content:space-between;
     align-items:baseline;gap:10px;
   }
-  .tile-name{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--white)}
-  .tile-desc{font-size:9px;letter-spacing:.1em;color:rgba(247,247,247,.4);text-align:right}
+  .tile-name{
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;
+    letter-spacing:.15em;
+    line-height:1.4;
+    text-transform:uppercase;
+    color:var(--white);
+  }
+  .tile-desc{
+    font-family:var(--font-body);
+    font-weight:400;
+    font-size:10px;
+    letter-spacing:.1em;
+    color:rgba(247,247,247,.4);
+    text-align:right;
+  }
   .badge{
     position:absolute;top:12px;left:12px;
-    font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;
+    letter-spacing:.15em;
+    line-height:1.4;
+    text-transform:uppercase;
     padding:4px 8px;border-radius:2px;
     background:rgba(212,166,74,.14);color:var(--gold);
     border:1px solid rgba(212,166,74,.3);
@@ -268,7 +394,9 @@
   }
   .mock-nav{display:flex;gap:26px}
   .mock-nav span{
-    font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;text-transform:uppercase;
     color:rgba(247,247,247,.55);
   }
   .mock-body{
@@ -278,10 +406,18 @@
       var(--black);
   }
   .mock-body .display{
-    font-size:34px;font-weight:600;letter-spacing:.16em;color:var(--white);
+    font-family:var(--font-display);
+    font-weight:var(--h2-weight);
+    font-size:var(--h2-size);
+    letter-spacing:var(--h2-track);
+    line-height:var(--h2-leading);
+    color:var(--white);
   }
   .mock-body p{
-    font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:var(--label-size);letter-spacing:var(--label-track);
+    line-height:var(--label-leading);text-transform:uppercase;
     color:rgba(200,169,126,.7);margin-top:12px;
   }
   .mock-footer{
@@ -289,7 +425,9 @@
     padding:22px 28px;border-top:1px solid rgba(212,166,74,.18);
   }
   .mock-footer small{
-    font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;text-transform:uppercase;
     color:rgba(247,247,247,.3);
   }
 
@@ -302,10 +440,22 @@
   @media(max-width:760px){.rules{grid-template-columns:1fr}}
   .rule-cell{background:var(--card);padding:26px 24px}
   .rule-cell h4{
-    font-size:9px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:10px;font-weight:600;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:var(--label-size);
+    letter-spacing:var(--label-track);
+    line-height:var(--label-leading);
+    text-transform:uppercase;
+    color:var(--gold);margin-bottom:10px;
   }
-  .rule-cell p{font-size:11.5px;line-height:1.75;color:rgba(247,247,247,.62)}
+  .rule-cell p{
+    font-family:var(--font-body);
+    font-weight:var(--body-weight);
+    font-size:var(--body-size);
+    letter-spacing:var(--body-track);
+    line-height:var(--body-leading);
+    color:rgba(247,247,247,.62);
+  }
   .dont{color:rgba(247,247,247,.42)}
 
   /* clear space diagram */
@@ -319,8 +469,11 @@
     border:1px dashed rgba(212,166,74,.45);
   }
   .cs-label{
-    position:absolute;font-size:8px;letter-spacing:.2em;
-    text-transform:uppercase;color:rgba(212,166,74,.7);
+    position:absolute;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;
+    line-height:1.4;text-transform:uppercase;color:rgba(212,166,74,.7);
   }
 
   footer.page-foot{
@@ -328,7 +481,9 @@
     border-top:1px solid rgba(255,255,255,.07);
   }
   footer.page-foot p{
-    font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+    font-family:var(--font-body);
+    font-weight:var(--label-weight);
+    font-size:10px;letter-spacing:.15em;text-transform:uppercase;
     color:rgba(247,247,247,.3);
   }
 </style>
@@ -577,7 +732,7 @@
     <span class="sec-num">04</span>
     <h2 class="sec-title">In Context</h2>
     <p class="sec-note">
-      The horizontal lockup at real store size — 26px wordmark, 44px crest.
+      The horizontal lockup at real store size - 26px wordmark, 42px crest.
     </p>
   </div>
 
@@ -607,7 +762,7 @@
           <div class="wordmark">HECCA</div>
         </div>
       </div>
-      <small>© HECCA — The Standard of Hybrid Luxury</small>
+      <small>© HECCA — ALL RIGHTS RESERVED</small>
     </div>
   </div>
 </section>
