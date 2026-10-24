@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { FONT, MONOGRAM, WORDMARK } from "../logos/hecca-paths.mjs";
+import { FONT, MONOGRAM, TAGLINE, TAGLINE_FONT, WORDMARK } from "../logos/hecca-paths.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const OUT = join(here, "..", "logos");
@@ -47,6 +47,7 @@ const GLOWS = {
 
 const EM = FONT.sourceSize; // 200
 const CAP = (FONT.capHeight / FONT.unitsPerEm) * EM; // 125
+const TAG_CAP = (TAGLINE_FONT.capHeight / TAGLINE_FONT.unitsPerEm) * TAGLINE_FONT.sourceSize; // 140
 const f = (v) => Number(v.toFixed(2));
 
 /* ---------- glow ---------- */
@@ -100,6 +101,23 @@ function placeWordmark(x, cy, scale, fill, glows, prefix) {
       right,
       top: baseline + WORDMARK.bbox.minY * scale,
       bottom: baseline + WORDMARK.bbox.maxY * scale,
+    },
+  };
+}
+
+/** Tagline: left edge at x, cap-height centre at cy, scaled to a target width. */
+function placeTagline(x, cy, targetWidth, fill) {
+  const scale = targetWidth / TAGLINE.advanceWidth;
+  const cap = TAG_CAP * scale;
+  const baseline = cy + cap / 2;
+  return {
+    markup: `<g transform="translate(${f(x)} ${f(baseline)}) scale(${f(scale)})">
+    <path d="${TAGLINE.d}" fill="${fill}"/></g>`,
+    box: {
+      left: x,
+      right: x + targetWidth,
+      top: baseline - cap,
+      bottom: baseline,
     },
   };
 }
@@ -173,6 +191,33 @@ function buildHorizontal(glowName, fill, pad = 56) {
   });
 }
 
+function buildHorizontalTagline(glowName, fill, pad = 56) {
+  const glows = GLOWS[glowName];
+  const r = 72;
+  const gap = 34;
+  const wmScale = 0.86;
+  const wmCap = CAP * wmScale;
+  const tagTarget = WORDMARK.advanceWidth * wmScale * 0.64;
+  const tagScale = tagTarget / TAGLINE.advanceWidth;
+  const tagCap = TAG_CAP * tagScale;
+  const tagGap = 18;
+
+  const blockH = wmCap + tagGap + tagCap;
+  const blockTop = r - blockH / 2;
+  const x = r * 2 + gap;
+
+  const c = placeCrest(r, r, r, { color: fill, glow: glowName !== "none" });
+  const wm = placeWordmark(x, blockTop + wmCap / 2, wmScale, fill, glows, "wm");
+  const tag = placeTagline(x, blockTop + wmCap + tagGap + tagCap / 2, tagTarget, fill);
+
+  return svg({
+    box: frame([c.box, wm.box, tag.box], pad),
+    defs: `${filterDefs(glows, "wm")}\n    ${c.defs}`,
+    body: `  ${c.markup}\n  ${wm.markup}\n  ${tag.markup}`,
+    label: "HECCA horizontal lockup with tagline",
+  });
+}
+
 function buildStacked(glowName, fill, pad = 56) {
   const glows = GLOWS[glowName];
   const r = 72;
@@ -242,6 +287,7 @@ const files = {
   "hecca-wordmark-black.svg": buildWordmark("none", C.black),
   "hecca-wordmark-white.svg": buildWordmark("none", C.white),
   "hecca-lockup-horizontal-plum.svg": buildHorizontal("plum", C.gold),
+  "hecca-lockup-horizontal-tagline-plum.svg": buildHorizontalTagline("plum", C.gold),
   "hecca-lockup-horizontal-emerald.svg": buildHorizontal("emerald", C.gold),
   "hecca-lockup-stacked-plum.svg": buildStacked("plum", C.gold),
   "hecca-monogram-plum.svg": buildMonogram("plum", C.gold),

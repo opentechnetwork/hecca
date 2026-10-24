@@ -22,6 +22,7 @@ Open `logo.html` for the spec sheet. Source files live in `logos/`:
 | `hecca-wordmark-flat.svg` | Flat gold, no glow (print, embroidery, small sizes) |
 | `hecca-wordmark-black.svg` / `-white.svg` | One-colour, no glow |
 | `hecca-lockup-horizontal-plum.svg` | Store header, receipts |
+| `hecca-lockup-horizontal-tagline-plum.svg` | Store header + receipts with "Hybrid By Design" under the name |
 | `hecca-lockup-stacked-plum.svg` | Hero, packaging, social |
 | `hecca-monogram-plum.svg` | Favicon, hardware |
 | `hecca-app-icon.svg` | 512 square app/social icon |
