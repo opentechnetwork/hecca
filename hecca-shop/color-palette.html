@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HECCA Color Palette — Pairings</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #0F0F0F;
+    color: #F7F7F7;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #D4A64A;
+  }
+  .subtitle {
+    text-align: center;
+    color: #C8A97E;
+    margin-bottom: 40px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .palette-section {
+    max-width: 1100px;
+    margin: 0 auto 50px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: #D4A64A;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #C8A97E;
+    padding-bottom: 8px;
+  }
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .swatch {
+    flex: 1 1 140px;
+    min-width: 140px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .swatch-color {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .swatch-info {
+    background: #1a1a1a;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .swatch-info .name { font-weight: 600; color: #F7F7F7; }
+  .swatch-info .hex { color: #C8A97E; font-family: monospace; }
+  .swatch-info .role { color: #888; font-size: 11px; margin-top: 4px; }
+  .removed {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+  .pairs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .pair-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .pair-preview {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    position: relative;
+  }
+  .pair-info {
+    background: #1a1a1a;
+    padding: 14px;
+  }
+  .pair-info .pair-name {
+    font-weight: 600;
+    color: #F7F7F7;
+    margin-bottom: 4px;
+  }
+  .pair-info .pair-vibe {
+    color: #C8A97E;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .pair-info .pair-use {
+    color: #888;
+    font-size: 11px;
+  }
+  .pair-colors {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .pair-color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+  .glow-demo {
+    margin-top: 40px;
+    text-align: center;
+  }
+  .glow-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: 12px;
+    color: #D4A64A;
+    text-shadow: 0 0 10px #D4A64A, 0 0 20px #D4A64A80, 0 0 40px #5C2D5C60, 0 0 80px #5C2D5C30;
+  }
+  .glow-sub {
+    color: #C8A97E;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>HECCA Color Palette</h1>
+<p class="subtitle">Updated Palette &amp; Pairings — Blues Removed, Plum &amp; Emerald Added</p>
+
+<!-- Full Palette -->
+<div class="palette-section">
+  <h2 class="section-title">Full Palette</h2>
+  <div class="swatches">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D4A64A;color:#0F0F0F;">#D4A64A</div>
+      <div class="swatch-info"><div class="name">Hybrid Gold</div><div class="hex">#D4A64A</div><div class="role">Primary accent</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0F0F0F;">#0F0F0F</div>
+      <div class="swatch-info"><div class="name">Deep Black</div><div class="hex">#0F0F0F</div><div class="role">Background</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F7F7F7;color:#0F0F0F;">#F7F7F7</div>
+      <div class="swatch-info"><div class="name">Soft White</div><div class="hex">#F7F7F7</div><div class="role">Text, light BG</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E84C7F;">#E84C7F</div>
+      <div class="swatch-info"><div class="name">Boutique Pink</div><div class="hex">#E84C7F</div><div class="role">Accent, CTAs</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C8A97E;color:#0F0F0F;">#C8A97E</div>
+      <div class="swatch-info"><div class="name">Leopard Tan</div><div class="hex">#C8A97E</div><div class="role">Earthy accent</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F5E9D2;color:#0F0F0F;">#F5E9D2</div>
+      <div class="swatch-info"><div class="name">Stripe Beige</div><div class="hex">#F5E9D2</div><div class="role">Warm neutral</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#5C2D5C;">#5C2D5C</div>
+      <div class="swatch-info"><div class="name">Deep Plum ✦ NEW</div><div class="hex">#5C2D5C</div><div class="role">Jewel tone</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1F5F4A;">#1F5F4A</div>
+      <div class="swatch-info"><div class="name">Emerald ✦ NEW</div><div class="hex">#1F5F4A</div><div class="role">Jewel tone</div></div>
+    </div>
+  </div>
+  <h3 style="color:#888;font-size:13px;margin-bottom:10px;">Removed (blues):</h3>
+  <div class="swatches">
+    <div class="swatch removed">
+      <div class="swatch-color" style="background:#3A6FB0;">#3A6FB0</div>
+      <div class="swatch-info"><div class="name">Electric Blue</div><div class="hex">#3A6FB0</div><div class="role">Removed</div></div>
+    </div>
+    <div class="swatch removed">
+      <div class="swatch-color" style="background:#A7C7F2;color:#0F0F0F;">#A7C7F2</div>
+      <div class="swatch-info"><div class="name">Sky Blue</div><div class="hex">#A7C7F2</div><div class="role">Removed</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Color Pairs -->
+<div class="palette-section">
+  <h2 class="section-title">Color Pairings</h2>
+  <div class="pairs-grid">
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#0F0F0F;color:#D4A64A;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">1. Hybrid Gold + Deep Black</div>
+        <div class="pair-vibe">Classic luxury</div>
+        <div class="pair-use">Logo, hero sections, primary branding</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#D4A64A;"></div>
+          <div class="pair-color-dot" style="background:#0F0F0F;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#5C2D5C;color:#D4A64A;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">2. Deep Plum + Hybrid Gold</div>
+        <div class="pair-vibe">Regal, opulent</div>
+        <div class="pair-use">Logo glow, premium accents, packaging</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#5C2D5C;"></div>
+          <div class="pair-color-dot" style="background:#D4A64A;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#1F5F4A;color:#F7F7F7;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">3. Emerald + Soft White</div>
+        <div class="pair-vibe">Fresh, clean luxury</div>
+        <div class="pair-use">Backgrounds, light mode, lifestyle</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#1F5F4A;"></div>
+          <div class="pair-color-dot" style="background:#F7F7F7;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#0F0F0F;color:#E84C7F;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">4. Boutique Pink + Deep Black</div>
+        <div class="pair-vibe">Bold, editorial</div>
+        <div class="pair-use">CTAs, sale banners, social media</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#E84C7F;"></div>
+          <div class="pair-color-dot" style="background:#0F0F0F;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#F5E9D2;color:#5C2D5C;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">5. Deep Plum + Stripe Beige</div>
+        <div class="pair-vibe">Warm, sophisticated</div>
+        <div class="pair-use">Product cards, editorial layouts</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#5C2D5C;"></div>
+          <div class="pair-color-dot" style="background:#F5E9D2;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#1F5F4A;color:#C8A97E;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">6. Emerald + Leopard Tan</div>
+        <div class="pair-vibe">Earthy luxury</div>
+        <div class="pair-use">Accessories, home decor sections</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#1F5F4A;"></div>
+          <div class="pair-color-dot" style="background:#C8A97E;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#F7F7F7;color:#0F0F0F;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">7. Soft White + Deep Black</div>
+        <div class="pair-vibe">High contrast</div>
+        <div class="pair-use">Body text, navigation, forms</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#F7F7F7;"></div>
+          <div class="pair-color-dot" style="background:#0F0F0F;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair-card">
+      <div class="pair-preview" style="background:#5C2D5C;color:#1F5F4A;">HECCA</div>
+      <div class="pair-info">
+        <div class="pair-name">8. Deep Plum + Emerald</div>
+        <div class="pair-vibe">Jewel-tone statement</div>
+        <div class="pair-use">Logo glow, hero banners, seasonal campaigns</div>
+        <div class="pair-colors">
+          <div class="pair-color-dot" style="background:#5C2D5C;"></div>
+          <div class="pair-color-dot" style="background:#1F5F4A;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Glow Demo -->
+<div class="palette-section">
+  <h2 class="section-title">Logo Glow Preview (Pair 2: Plum + Gold)</h2>
+  <div class="glow-demo">
+    <div class="glow-text">HECCA</div>
+    <div class="glow-sub">Hybrid Gold on Deep Plum with Plum Glow</div>
+  </div>
+</div>
+
+</body>
+</html>
