@@ -4,8 +4,10 @@ Two unrelated-to-anything-else workstreams for the HECCA Shopify build:
 
 | Folder | What it is |
 | --- | --- |
-| `clickup/` | ClickUp integration — builds/assigns the Website Build tasks (dev vs owner) |
-| `hecca-shop/` | Shopify store work — Admin API tooling + theme (Shopify CLI) |
+| `clickup/` | ClickUp integration - builds/assigns the Website Build tasks (dev vs owner) |
+| `hecca-shop/` | Shopify store work - Admin API tooling + theme (Shopify CLI) |
+| `hecca.html` | Brand identity / style guide (hosted via GitHub Pages) |
+| `index.html` | Brand landing page |
 
 ## Secrets
 
