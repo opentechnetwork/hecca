@@ -4,9 +4,17 @@
    HECCA — storefront stylesheet
    --------------------------------------------------------------------------
    WHERE THIS GOES
-   Online Store > Themes > Customize > Theme settings > Custom CSS
-   Paste the whole file. Delete the @import line if your theme already loads
-   Cormorant Garamond and Montserrat under Typography settings.
+   Online Store > Themes > Edit code. Upload this file as an asset named
+   hecca.css, then add one line under the theme's own stylesheet in
+   layout/theme.liquid:
+
+       {{ 'hecca.css' | asset_url | stylesheet_tag }}
+
+   Full walkthrough: hecca-shop/theme/README.md.
+
+   Keep it out of base.css. A separate asset means a theme update never has
+   to be merged: the stock theme files stay stock, and this file is the only
+   thing carrying brand rules.
 
    WHAT IT DOES
    1. Hard-codes the brand type hierarchy (H1, H2, Body, Pull Quote, Label).
