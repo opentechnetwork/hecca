@@ -55,6 +55,19 @@ Variants: `a` type only, `b` crest + halo (default), `c` solid colour field.
 Type comes from `logos/hecca-glyphs.mjs`, so no fonts are needed to build them.
 Rasterize the SVGs to 2048 PNG before uploading.
 
+Attach them to the live collections:
+
+```
+node scripts/collection-images.mjs            # plan, no writes
+node scripts/collection-images.mjs --apply    # staged upload + collectionUpdate
+node scripts/collection-images.mjs --verify   # what is attached now
+```
+
+Re-running `--apply` is a no-op until a PNG changes on disk (the SHA-256 of
+each upload is kept in `reports/collection-images.json`, which is generated).
+Dawn's collection list defaults to a square ratio, so the square plates are
+not cropped.
+
 
 ## Secrets
 
