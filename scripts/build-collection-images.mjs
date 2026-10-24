@@ -11,6 +11,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { DISPLAY, BODY } from "../logos/hecca-glyphs.mjs";
 import { MONOGRAM } from "../logos/hecca-paths.mjs";
+import { TAXONOMY } from "../hecca-shop/data/taxonomy.mjs";
 
 const S = 2048; // canvas
 const CX = S / 2;
@@ -25,7 +26,20 @@ const C = {
   emerald: "#1F5F4A",
 };
 
-const COLLECTIONS = [
+// Each top-level collection gets a curated label; its children inherit the same
+// field colour and carry the parent's name as their label, so the grid reads as
+// families. Children come straight from the taxonomy — adding a subcollection
+// there is enough for a plate to appear here.
+const FIELD = {
+  jewelry: "plum",
+  apparel: "emerald",
+  accessories: "plum",
+  "home-decor": "emerald",
+  beauty: "plum",
+  vintage: "gold",
+};
+
+const PARENTS = [
   { handle: "jewelry", name: "Jewelry", label: "RINGS · NECKLACES · EARRINGS · BRACELETS", field: "plum" },
   { handle: "apparel", name: "Apparel", label: "SHIRTS · DRESSES · OUTERWEAR · SHOES", field: "emerald" },
   { handle: "accessories", name: "Accessories", label: "BAGS · BELTS · HATS · HAIR", field: "plum" },
@@ -36,6 +50,34 @@ const COLLECTIONS = [
   { handle: "hecca-homme", name: "Hecca Homme", label: "TAILORING · HARDWARE", field: "emerald" },
   { handle: "hecca-wild", name: "Hecca Wild", label: "LEOPARD · ZEBRA · PYTHON", field: "gold" },
   { handle: "hecca-aura", name: "Hecca Aura", label: "IRIDESCENT · SHEER", field: "emerald" },
+];
+
+const CHILDREN = [
+  ...TAXONOMY.categories.flatMap((cat) =>
+    cat.children.map((sub) => ({
+      handle: sub.handle,
+      name: sub.name,
+      label: cat.name.toUpperCase(),
+      field: FIELD[cat.handle],
+    })),
+  ),
+  ...TAXONOMY.vintage.children.map((sub) => ({
+    handle: sub.handle,
+    name: sub.name,
+    label: "ONE OF ONE",
+    field: "gold",
+  })),
+];
+
+const COLLECTIONS = [...PARENTS, ...CHILDREN];
+
+/** Every handle the taxonomy defines — used to prove no plate is missing. */
+const TAXONOMY_HANDLES = [
+  ...TAXONOMY.categories.map((c) => c.handle),
+  ...TAXONOMY.categories.flatMap((c) => c.children.map((s) => s.handle)),
+  TAXONOMY.vintage.handle,
+  ...TAXONOMY.vintage.children.map((s) => s.handle),
+  ...TAXONOMY.brandLines.map((l) => l.handle),
 ];
 
 const FIELD_HEX = { plum: C.plum, emerald: C.emerald, gold: C.gold };
@@ -102,6 +144,9 @@ function rule(y) {
 
 /* ---------- variants ---------- */
 
+const esc = (s) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
 function plate(collection, variant) {
   const field = FIELD_HEX[collection.field];
   const name = collection.name.toUpperCase();
@@ -123,7 +168,7 @@ function plate(collection, variant) {
 
   if (withCrest) body.push(crest(CX, top + 112, 224, C.gold));
 
-  const nameSize = fitSize(name, DISPLAY, 0.14, 1400, 168);
+  const nameSize = fitSize(name, DISPLAY, 0.14, 1560, 168);
   const nameBaseline = top + blockH - 96;
   body.push(place(name, DISPLAY, nameSize, 0.14, CX, nameBaseline, C.gold));
 
@@ -132,7 +177,7 @@ function plate(collection, variant) {
   const labelSize = fitSize(collection.label, BODY, 0.36, 1300, 34);
   body.push(place(collection.label, BODY, labelSize, 0.36, CX, nameBaseline + 118, C.white));
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" role="img" aria-label="${collection.name} collection">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" role="img" aria-label="${esc(collection.name)} collection">
 ${body.join("\n")}
 </svg>
 `;
@@ -154,6 +199,16 @@ mkdirSync(outDir, { recursive: true });
 
 const list = only ? COLLECTIONS.filter((c) => c.handle === only) : COLLECTIONS;
 if (!list.length) throw new Error(`unknown handle: ${only}`);
+
+// Guard against the "some are still missing" case: the plate list must cover
+// every handle in the taxonomy exactly once.
+const built = new Set(COLLECTIONS.map((c) => c.handle));
+const missing = TAXONOMY_HANDLES.filter((h) => !built.has(h));
+const extra = [...built].filter((h) => !TAXONOMY_HANDLES.includes(h));
+if (missing.length || extra.length) {
+  if (missing.length) console.log(`⚠ no plate for: ${missing.join(", ")}`);
+  if (extra.length) console.log(`⚠ plate but not in taxonomy: ${extra.join(", ")}`);
+}
 
 const variants = allVariants ? ["a", "b", "c"] : [variant];
 let n = 0;

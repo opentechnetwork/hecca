@@ -43,8 +43,13 @@ To rasterize PNGs, `npm i sharp` then run the rasterizer.
 
 `hecca-shop/assets/collections/` holds the 2048 square plates used as Shopify
 collection images: black field, hairline gold frame, crest, collection name and
-a one-line label of what is inside. Ten plates — the six categories, Vintage and
-the four brand lines.
+a one-line label. One plate per collection in `hecca-shop/data/taxonomy.mjs` —
+all 35, top level and subcollections alike.
+
+A subcollection inherits its parent's field colour and prints the parent's name
+as its label, so a tile reads `RINGS` over `JEWELRY`. The build derives the list
+from the taxonomy and warns if a handle has no plate, so a new subcollection
+cannot be forgotten.
 
 ```
 node scripts/build-collection-images.mjs                    # all, recommended style
