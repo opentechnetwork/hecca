@@ -1,0 +1,335 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+/* ==========================================================================
+   HECCA — storefront stylesheet
+   --------------------------------------------------------------------------
+   WHERE THIS GOES
+   Online Store > Themes > Customize > Theme settings > Custom CSS
+   Paste the whole file. Delete the @import line if your theme already loads
+   Cormorant Garamond and Montserrat under Typography settings.
+
+   WHAT IT DOES
+   1. Hard-codes the brand type hierarchy (H1, H2, Body, Pull Quote, Label).
+   2. Defines every brand colour as a variable.
+   3. Provides surface classes that set background + text + accent together,
+      so a colour pair can never drift apart.
+
+   NOTE ON H1
+   Shopify templates use h1 for product titles and page titles, not just the
+   homepage hero. So h1 and h2 both take the Section role by default, and the
+   Hero role is applied on the homepage and through .hecca-h1. Nothing gets
+   an 80px product title by accident.
+
+   No .h1–.h6 utility classes are touched. In Dawn, product card titles carry
+   .h5, and restyling those would shrink them to label size.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TOKENS
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* ---- Brand ---- */
+  --hecca-gold: #d4a64a;          /* Hybrid Gold — primary */
+  --hecca-gold-high: #efd49a;     /* highlight, thin rules on dark */
+  --hecca-gold-low: #b4863a;      /* gold for light surfaces */
+  --hecca-plum: #5c2d5c;          /* Deep Plum */
+  --hecca-emerald: #1f5f4a;       /* Emerald */
+  --hecca-emerald-high: #3e8c6e;  /* emerald highlight */
+
+  /* ---- Neutrals ---- */
+  --hecca-black: #0f0f0f;         /* Deep Black */
+  --hecca-ink: #151515;           /* cards sitting on black */
+  --hecca-white: #f7f7f7;         /* Soft White */
+  --hecca-beige: #f5e9d2;         /* Stripe Beige — light surface */
+  --hecca-tan: #c8a97e;           /* Leopard Tan — legacy accent */
+
+  /* ---- Lines, scrims ---- */
+  --hecca-line: rgba(212, 166, 74, 0.28);
+  --hecca-line-soft: rgba(247, 247, 247, 0.12);
+  --hecca-scrim: rgba(15, 15, 15, 0.72);
+
+  /* ---- Families ---- */
+  --hecca-font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --hecca-font-body: "Montserrat", -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* ---- Type scale (brand guide 05) ---- */
+
+  /* H1 — Hero        Cormorant Garamond 700 · 64–80px · 0.30em */
+  --hecca-h1-size: clamp(64px, 7.2vw, 80px);
+  --hecca-h1-track: 0.3em;
+  --hecca-h1-leading: 1.1;
+
+  /* H2 — Section     Cormorant Garamond 700 · 32–40px · 0.10em */
+  --hecca-h2-size: clamp(32px, 3.6vw, 40px);
+  --hecca-h2-track: 0.1em;
+  --hecca-h2-leading: 1.15;
+
+  /* Body             Montserrat 400 · 14–16px · normal · 1.6 */
+  --hecca-body-size: clamp(14px, 1.15vw, 16px);
+  --hecca-body-track: normal;
+  --hecca-body-leading: 1.6;
+
+  /* Pull Quote       Cormorant Garamond Italic 400 · 22–28px */
+  --hecca-quote-size: clamp(22px, 2.4vw, 28px);
+  --hecca-quote-leading: 1.5;
+
+  /* Label            Montserrat 600 · 10–12px · 0.15em */
+  --hecca-label-size: clamp(10px, 0.85vw, 12px);
+  --hecca-label-track: 0.15em;
+  --hecca-label-leading: 1.4;
+
+  /* Derived sub-levels of H2 — same family and tracking, one step down */
+  --hecca-h3-size: clamp(24px, 2.6vw, 28px);
+  --hecca-h4-size: clamp(18px, 1.8vw, 20px);
+
+  /* ---- Active surface (background / foreground / accent as a pair) ---- */
+  --hecca-surface: var(--hecca-black);
+  --hecca-on-surface: var(--hecca-white);
+  --hecca-muted: rgba(247, 247, 247, 0.62);
+  --hecca-accent: var(--hecca-gold);
+}
+
+/* --------------------------------------------------------------------------
+   2. TYPE HIERARCHY
+   Element rules are prefixed with body so they beat the theme's base layer.
+   -------------------------------------------------------------------------- */
+
+body {
+  font-family: var(--hecca-font-body);
+  font-size: var(--hecca-body-size);
+  font-weight: 400;
+  line-height: var(--hecca-body-leading);
+  letter-spacing: var(--hecca-body-track);
+  background-color: var(--hecca-surface);
+  color: var(--hecca-on-surface);
+}
+
+/* H1 + H2 — Section role. .title is the theme's section-heading class. */
+body h1,
+body h2,
+body .title,
+.hecca-h1,
+.hecca-h2 {
+  font-family: var(--hecca-font-display);
+  font-weight: 700;
+  font-size: var(--hecca-h2-size);
+  letter-spacing: var(--hecca-h2-track);
+  line-height: var(--hecca-h2-leading);
+  text-transform: uppercase;
+  color: var(--hecca-accent);
+  text-wrap: balance;
+}
+
+/* H1 — Hero role, homepage only, or opt in with .hecca-h1 */
+body.template-index h1,
+.hecca-h1 {
+  font-size: var(--hecca-h1-size);
+  letter-spacing: var(--hecca-h1-track);
+  line-height: var(--hecca-h1-leading);
+}
+
+/* H3 — derived from H2 */
+body h3,
+.hecca-h3 {
+  font-family: var(--hecca-font-display);
+  font-weight: 700;
+  font-size: var(--hecca-h3-size);
+  letter-spacing: var(--hecca-h2-track);
+  line-height: 1.2;
+  color: var(--hecca-on-surface);
+}
+
+/* H4 — derived from H2 */
+body h4,
+.hecca-h4 {
+  font-family: var(--hecca-font-display);
+  font-weight: 700;
+  font-size: var(--hecca-h4-size);
+  letter-spacing: var(--hecca-h2-track);
+  line-height: 1.25;
+  color: var(--hecca-on-surface);
+}
+
+/* H5 / H6 — Label role */
+body h5,
+body h6,
+.hecca-label {
+  font-family: var(--hecca-font-body);
+  font-weight: 600;
+  font-size: var(--hecca-label-size);
+  letter-spacing: var(--hecca-label-track);
+  line-height: var(--hecca-label-leading);
+  text-transform: uppercase;
+  color: var(--hecca-accent);
+}
+
+/* Body */
+body p,
+body li,
+body dd,
+body dt,
+.hecca-body {
+  font-family: var(--hecca-font-body);
+  font-weight: 400;
+  font-size: var(--hecca-body-size);
+  letter-spacing: var(--hecca-body-track);
+  line-height: var(--hecca-body-leading);
+  color: var(--hecca-on-surface);
+}
+
+/* Pull quote */
+body blockquote,
+.hecca-quote {
+  font-family: var(--hecca-font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--hecca-quote-size);
+  letter-spacing: normal;
+  line-height: var(--hecca-quote-leading);
+  color: var(--hecca-accent);
+}
+
+/* Small print */
+body small,
+body figcaption,
+.hecca-caption {
+  font-family: var(--hecca-font-body);
+  font-weight: 600;
+  font-size: var(--hecca-label-size);
+  letter-spacing: var(--hecca-label-track);
+  line-height: var(--hecca-label-leading);
+  text-transform: uppercase;
+  color: var(--hecca-muted);
+}
+
+/* --------------------------------------------------------------------------
+   3. COLOUR UTILITIES
+   Use these when a surface class is too blunt.
+   -------------------------------------------------------------------------- */
+
+.hecca-bg-black { background-color: var(--hecca-black); }
+.hecca-bg-plum { background-color: var(--hecca-plum); }
+.hecca-bg-emerald { background-color: var(--hecca-emerald); }
+.hecca-bg-beige { background-color: var(--hecca-beige); }
+.hecca-bg-white { background-color: var(--hecca-white); }
+.hecca-bg-ink { background-color: var(--hecca-ink); }
+
+.hecca-text-gold { color: var(--hecca-gold); }
+.hecca-text-gold-low { color: var(--hecca-gold-low); }
+.hecca-text-white { color: var(--hecca-white); }
+.hecca-text-black { color: var(--hecca-black); }
+.hecca-text-plum { color: var(--hecca-plum); }
+.hecca-text-emerald { color: var(--hecca-emerald); }
+.hecca-text-muted { color: var(--hecca-muted); }
+
+.hecca-border-gold { border: 1px solid var(--hecca-line); }
+
+.hecca-rule {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hecca-gold), transparent);
+  margin: 32px 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. SURFACES — background + text + accent, always as a pair
+   Add one class to any wrapper. Everything inside inherits the pair.
+   -------------------------------------------------------------------------- */
+
+.hecca-surface--black {
+  --hecca-surface: var(--hecca-black);
+  --hecca-on-surface: var(--hecca-white);
+  --hecca-muted: rgba(247, 247, 247, 0.62);
+  --hecca-accent: var(--hecca-gold);
+}
+
+.hecca-surface--plum {
+  --hecca-surface: var(--hecca-plum);
+  --hecca-on-surface: var(--hecca-white);
+  --hecca-muted: rgba(247, 247, 247, 0.68);
+  --hecca-accent: var(--hecca-gold);
+}
+
+.hecca-surface--emerald {
+  --hecca-surface: var(--hecca-emerald);
+  --hecca-on-surface: var(--hecca-white);
+  --hecca-muted: rgba(247, 247, 247, 0.7);
+  --hecca-accent: var(--hecca-gold);
+}
+
+.hecca-surface--beige {
+  --hecca-surface: var(--hecca-beige);
+  --hecca-on-surface: var(--hecca-black);
+  --hecca-muted: rgba(15, 15, 15, 0.66);
+  --hecca-accent: var(--hecca-gold-low);
+}
+
+.hecca-surface--white {
+  --hecca-surface: var(--hecca-white);
+  --hecca-on-surface: var(--hecca-black);
+  --hecca-muted: rgba(15, 15, 15, 0.6);
+  --hecca-accent: var(--hecca-gold-low);
+}
+
+/* Paint the pair. Covers sections that ship with their own background. */
+[class*="hecca-surface--"] {
+  background-color: var(--hecca-surface);
+  color: var(--hecca-on-surface);
+}
+
+/* --------------------------------------------------------------------------
+   5. APPLYING A SURFACE WITHOUT EDITING LIQUID
+   Shopify section IDs end in the section type, so a section can be targeted
+   from this file alone. Uncomment and adjust.
+
+   #shopify-section-template--00000000000000__image_banner {
+     --hecca-surface: var(--hecca-plum);
+     --hecca-on-surface: var(--hecca-white);
+     --hecca-accent: var(--hecca-gold);
+     background-color: var(--hecca-surface);
+   }
+
+   #shopify-section-template--00000000000000__rich_text {
+     --hecca-surface: var(--hecca-beige);
+     --hecca-on-surface: var(--hecca-black);
+     --hecca-accent: var(--hecca-gold-low);
+     background-color: var(--hecca-surface);
+   }
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   6. DETAILS
+   -------------------------------------------------------------------------- */
+
+::selection {
+  background: var(--hecca-gold);
+  color: var(--hecca-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--hecca-gold);
+  outline-offset: 3px;
+}
+
+/* Screen-only glow for the wordmark. Never use in print. */
+.hecca-glow {
+  text-shadow: 0 0 40px rgba(212, 166, 74, 0.6),
+    0 0 80px rgba(212, 166, 74, 0.3),
+    0 0 120px rgba(212, 166, 74, 0.15);
+}
+
+/* Soft halo for the crest, on dark surfaces only. */
+.hecca-halo {
+  box-shadow: 0 0 30px rgba(212, 166, 74, 0.4),
+    0 0 60px rgba(212, 166, 74, 0.2),
+    inset 0 0 30px rgba(212, 166, 74, 0.1);
+}
+
+/* Links inside body copy — gold underline, never blue. */
+body p a,
+.hecca-body a {
+  color: var(--hecca-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
