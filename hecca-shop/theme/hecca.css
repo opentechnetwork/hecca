@@ -99,8 +99,27 @@
 }
 
 /* --------------------------------------------------------------------------
+   1b. THEME BRIDGE
+   Dawn and its derivatives resolve every heading and body font through two
+   custom properties, then apply them with component classes (.h1, .h2 …).
+   Setting the properties here re-themes the whole storefront without fighting
+   those classes: the theme's rules keep working, they just resolve to the
+   brand faces.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --font-heading-family: var(--hecca-font-display);
+  --font-heading-weight: 700;
+  --font-heading-style: normal;
+  --font-body-family: var(--hecca-font-body);
+}
+
+/* --------------------------------------------------------------------------
    2. TYPE HIERARCHY
-   Element rules are prefixed with body so they beat the theme's base layer.
+   Element rules carry a body prefix, and the heading rules also list the
+   theme's .h1-.h4 classes, so they beat base.css. .h5 and .h6 are deliberately
+   absent: Dawn puts .h5 on product card titles, and a label-sized card title
+   would be unreadable.
    -------------------------------------------------------------------------- */
 
 body {
@@ -109,13 +128,16 @@ body {
   font-weight: 400;
   line-height: var(--hecca-body-leading);
   letter-spacing: var(--hecca-body-track);
-  background-color: var(--hecca-surface);
-  color: var(--hecca-on-surface);
 }
 
-/* H1 + H2 — Section role. .title is the theme's section-heading class. */
-body h1,
-body h2,
+/* H1 + H2 — Section role. .title is the theme's section-heading class.
+   The :not() guards keep the theme's body-text utilities — facet labels and
+   product counts are marked up as h2 with .text-body — from turning into
+   gold caps. */
+body h1:not(.text-body):not(.caption-large),
+body h2:not(.text-body):not(.caption-large),
+body .h1,
+body .h2,
 body .title,
 .hecca-h1,
 .hecca-h2 {
@@ -130,7 +152,8 @@ body .title,
 }
 
 /* H1 — Hero role, homepage only, or opt in with .hecca-h1 */
-body.template-index h1,
+body.template-index h1:not(.text-body):not(.caption-large),
+body.template-index .h1,
 .hecca-h1 {
   font-size: var(--hecca-h1-size);
   letter-spacing: var(--hecca-h1-track);
@@ -139,24 +162,26 @@ body.template-index h1,
 
 /* H3 — derived from H2 */
 body h3,
+body .h3,
 .hecca-h3 {
   font-family: var(--hecca-font-display);
   font-weight: 700;
   font-size: var(--hecca-h3-size);
   letter-spacing: var(--hecca-h2-track);
   line-height: 1.2;
-  color: var(--hecca-on-surface);
+  color: inherit;
 }
 
 /* H4 — derived from H2 */
 body h4,
+body .h4,
 .hecca-h4 {
   font-family: var(--hecca-font-display);
   font-weight: 700;
   font-size: var(--hecca-h4-size);
   letter-spacing: var(--hecca-h2-track);
   line-height: 1.25;
-  color: var(--hecca-on-surface);
+  color: inherit;
 }
 
 /* H5 / H6 — Label role */
@@ -183,7 +208,9 @@ body dt,
   font-size: var(--hecca-body-size);
   letter-spacing: var(--hecca-body-track);
   line-height: var(--hecca-body-leading);
-  color: var(--hecca-on-surface);
+  /* inherit, not a fixed colour: a section can be light or dark, and a white
+     paragraph on a white panel is worse than no styling at all. */
+  color: inherit;
 }
 
 /* Pull quote */
@@ -208,7 +235,9 @@ body figcaption,
   letter-spacing: var(--hecca-label-track);
   line-height: var(--hecca-label-leading);
   text-transform: uppercase;
-  color: var(--hecca-muted);
+  /* opacity rather than a fixed colour, so it reads on light and dark alike */
+  color: inherit;
+  opacity: 0.65;
 }
 
 /* --------------------------------------------------------------------------
@@ -285,6 +314,25 @@ body figcaption,
   background-color: var(--hecca-surface);
   color: var(--hecca-on-surface);
 }
+
+/* --------------------------------------------------------------------------
+   4b. PAGE COLOUR — owned by the theme, not by this file
+   Dawn paints the page, header, sections and footer from five colour schemes
+   in Theme settings. Overriding those from CSS flips every scheme at once and
+   produces surprises: a white header on a dark page, or gold text on white.
+   Set the schemes once in Customize > Colors, then use the surface classes
+   above for individual sections.
+
+   If you would rather force the page dark from CSS, uncomment this. It
+   overrides every scheme that derives from the base colours:
+
+   :root {
+     --color-base-background-1: 15, 15, 15;
+     --color-base-text: 247, 247, 247;
+     --gradient-base-background-1: #0F0F0F;
+     --gradient-base-background-2: #0F0F0F;
+   }
+   -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
    5. APPLYING A SURFACE WITHOUT EDITING LIQUID
