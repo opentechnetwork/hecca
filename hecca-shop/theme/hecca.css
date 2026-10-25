@@ -22,6 +22,7 @@
    3. Provides surface classes that set background + text + accent together,
       so a colour pair can never drift apart.
    4. Adds subtle 3D shadows to product, collection and generic cards.
+   5. Draws a hairline above and below every section.
 
    NOTE ON H1
    Shopify templates use h1 for product titles and page titles, not just the
@@ -417,4 +418,28 @@ body figcaption,
 .card__inner {
   overflow: hidden;
 }
+
+/* --------------------------------------------------------------------------
+   8. SECTION DIVIDERS
+   A hairline above and below every section so blocks read as separate bands.
+   Adjacent sections stack their lines into a single slightly heavier rule.
+   -------------------------------------------------------------------------- */
+
+.shopify-section {
+  border-top: 1px solid var(--hecca-line);
+  border-bottom: 1px solid var(--hecca-line);
+}
+
+/* Reusable divider element and utility classes. */
+hr.hecca-hr,
+.hecca-divider {
+  border: 0;
+  height: 1px;
+  margin: 0;
+  background: var(--hecca-line);
+}
+
+.hecca-divider-top { border-top: 1px solid var(--hecca-line); }
+.hecca-divider-bottom { border-bottom: 1px solid var(--hecca-line); }
+.hecca-divider-both { border-top: 1px solid var(--hecca-line); border-bottom: 1px solid var(--hecca-line); }
 
