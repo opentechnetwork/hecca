@@ -422,12 +422,36 @@ body figcaption,
 /* --------------------------------------------------------------------------
    8. SECTION DIVIDERS
    A hairline above and below every section so blocks read as separate bands.
-   Adjacent sections stack their lines into a single slightly heavier rule.
+   The line is inset to match the content width, so it never runs past the
+   cards or text it frames.
    -------------------------------------------------------------------------- */
 
 .shopify-section {
-  border-top: 1px solid var(--hecca-line);
-  border-bottom: 1px solid var(--hecca-line);
+  position: relative;
+  border: 0;
+}
+
+.shopify-section::before,
+.shopify-section::after {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: var(--hecca-line);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shopify-section::before { top: 0; }
+.shopify-section::after { bottom: 0; }
+
+@media (min-width: 750px) {
+  .shopify-section::before,
+  .shopify-section::after {
+    left: 5rem;
+    right: 5rem;
+  }
 }
 
 /* Reusable divider element and utility classes. */
@@ -442,4 +466,18 @@ hr.hecca-hr,
 .hecca-divider-top { border-top: 1px solid var(--hecca-line); }
 .hecca-divider-bottom { border-bottom: 1px solid var(--hecca-line); }
 .hecca-divider-both { border-top: 1px solid var(--hecca-line); border-bottom: 1px solid var(--hecca-line); }
+
+/* --------------------------------------------------------------------------
+   9. CARD CLEANUP — image and text share one clean edge
+   Dawn insets card text 1rem inside the image. Aligning them to the same
+   left/right edge reads cleaner and more organised.
+   -------------------------------------------------------------------------- */
+
+.card .card__inner .card__content,
+.card--media .card__inner .card__content,
+.card__content,
+.card__information {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 
