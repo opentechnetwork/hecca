@@ -494,3 +494,55 @@ hr.hecca-hr,
   padding: var(--hecca-card-image-padding);
 }
 
+/* --------------------------------------------------------------------------
+   10. ADD-TO-CART BUTTON — gold, branded, with lift
+   Replaces Dawn's flat secondary button with a gold CTA.
+   -------------------------------------------------------------------------- */
+
+.product-form__submit,
+button[name="add"],
+.btn--add-to-cart {
+  background-color: var(--hecca-gold);
+  color: var(--hecca-black);
+  font-family: var(--hecca-font-body);
+  font-weight: 700;
+  font-size: var(--hecca-label-size);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px -4px rgba(212, 166, 74, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.product-form__submit:hover,
+button[name="add"]:hover,
+.btn--add-to-cart:hover {
+  background-color: var(--hecca-gold-high);
+  box-shadow: 0 6px 16px -4px rgba(212, 166, 74, 0.5);
+  transform: translateY(-1px);
+}
+
+.product-form__submit:active,
+button[name="add"]:active,
+.btn--add-to-cart:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px -4px rgba(212, 166, 74, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   11. COLLECTION PAGE CLEANUP
+   Tighter side padding and a cleaner grid on collection pages.
+   -------------------------------------------------------------------------- */
+
+.collection .page-width,
+.collection-hero__inner.page-width {
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+
+.collection .product-grid {
+  column-gap: 1.2rem;
+  row-gap: 2.4rem;
+}
+
