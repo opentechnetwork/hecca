@@ -104,6 +104,7 @@
     0 0 0 1px rgba(212, 166, 74, 0.06);
   --hecca-card-shadow-hover: 0 14px 32px -10px rgba(0, 0, 0, 0.45),
     0 0 0 1px rgba(212, 166, 74, 0.12);
+  --hecca-card-image-padding: 12px;
 }
 
 /* --------------------------------------------------------------------------
@@ -391,32 +392,43 @@ body figcaption,
 }
 
 /* --------------------------------------------------------------------------
-   7. CARD SHADOWS — subtle, clean, 3D lift
-   Applies to product cards, collection cards and generic cards. The shadow is
-   a soft drop plus a faint gold hairline, so it reads on dark and light
-   backgrounds alike. Hover lifts the card 2px and deepens the shadow.
+   7. CARD SHADOWS — subtle, clean, 3D lift on the IMAGE only
+   The shadow sits on the image (not the whole card), so the card body stays
+   clean. Hover lifts the image 2px and deepens the shadow.
    -------------------------------------------------------------------------- */
 
-.card,
-.card-wrapper,
-.card-collection,
-.collection-card {
+.card__media,
+.card__media .media {
   box-shadow: var(--hecca-card-shadow);
+  border-radius: 2px;
+  padding: var(--hecca-card-image-padding);
+  background-color: var(--hecca-ink);
+  overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card:hover,
-.card-wrapper:hover,
-.card-collection:hover,
-.collection-card:hover {
+.card__media .media img {
+  top: var(--hecca-card-image-padding) !important;
+  left: var(--hecca-card-image-padding) !important;
+  width: calc(100% - 2 * var(--hecca-card-image-padding)) !important;
+  height: calc(100% - 2 * var(--hecca-card-image-padding)) !important;
+  object-fit: contain !important;
+  border-radius: 2px !important;
+}
+
+.card__media:hover,
+.card__media .media:hover {
   box-shadow: var(--hecca-card-shadow-hover);
   transform: translateY(-2px);
 }
 
-/* Dawn already clips the media; keep the corner radius untouched. */
-.card__media,
-.card__inner {
-  overflow: hidden;
+/* Keep a subtle shadow token available for any element that opts in. */
+.card,
+.card-wrapper,
+.card-collection,
+.collection-card {
+  box-shadow: none;
+  transition: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -468,16 +480,17 @@ hr.hecca-hr,
 .hecca-divider-both { border-top: 1px solid var(--hecca-line); border-bottom: 1px solid var(--hecca-line); }
 
 /* --------------------------------------------------------------------------
-   9. CARD CLEANUP — image and text share one clean edge
-   Dawn insets card text 1rem inside the image. Aligning them to the same
-   left/right edge reads cleaner and more organised.
+   9. CARD CLEANUP — image padding only
+   Images are inset so they don't fill the entire card. Text padding is left
+   to the theme's own settings (the user set 25px).
    -------------------------------------------------------------------------- */
 
-.card .card__inner .card__content,
-.card--media .card__inner .card__content,
-.card__content,
-.card__information {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+:root {
+  --hecca-card-image-padding: 12px;
+}
+
+.card__media,
+.card__media .media {
+  padding: var(--hecca-card-image-padding);
 }
 
