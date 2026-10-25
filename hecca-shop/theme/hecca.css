@@ -21,6 +21,7 @@
    2. Defines every brand colour as a variable.
    3. Provides surface classes that set background + text + accent together,
       so a colour pair can never drift apart.
+   4. Adds subtle 3D shadows to product, collection and generic cards.
 
    NOTE ON H1
    Shopify templates use h1 for product titles and page titles, not just the
@@ -96,6 +97,12 @@
   --hecca-on-surface: var(--hecca-white);
   --hecca-muted: rgba(247, 247, 247, 0.62);
   --hecca-accent: var(--hecca-gold);
+
+  /* ---- Shadows (subtle, clean, 3D lift) ---- */
+  --hecca-card-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 166, 74, 0.06);
+  --hecca-card-shadow-hover: 0 14px 32px -10px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(212, 166, 74, 0.12);
 }
 
 /* --------------------------------------------------------------------------
@@ -382,10 +389,32 @@ body figcaption,
     inset 0 0 30px rgba(212, 166, 74, 0.1);
 }
 
-/* Links inside body copy — gold underline, never blue. */
-body p a,
-.hecca-body a {
-  color: var(--hecca-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
+/* --------------------------------------------------------------------------
+   7. CARD SHADOWS — subtle, clean, 3D lift
+   Applies to product cards, collection cards and generic cards. The shadow is
+   a soft drop plus a faint gold hairline, so it reads on dark and light
+   backgrounds alike. Hover lifts the card 2px and deepens the shadow.
+   -------------------------------------------------------------------------- */
+
+.card,
+.card-wrapper,
+.card-collection,
+.collection-card {
+  box-shadow: var(--hecca-card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+.card:hover,
+.card-wrapper:hover,
+.card-collection:hover,
+.collection-card:hover {
+  box-shadow: var(--hecca-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Dawn already clips the media; keep the corner radius untouched. */
+.card__media,
+.card__inner {
+  overflow: hidden;
+}
+
