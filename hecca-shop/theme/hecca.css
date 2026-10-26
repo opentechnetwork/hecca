@@ -546,3 +546,107 @@ button[name="add"]:active,
   row-gap: 2.4rem;
 }
 
+/* === HECCA HERO (homepage) === */
+.hecca-hero {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hecca-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hecca-hero__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hecca-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(15, 15, 15, 0.5);
+}
+
+.hecca-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  padding: 0 2rem;
+  color: var(--hecca-white);
+}
+
+.hecca-hero__label {
+  font-family: var(--hecca-font-body);
+  font-weight: 600;
+  font-size: var(--hecca-label-size);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--hecca-gold);
+  margin-bottom: 1rem;
+}
+
+.hecca-hero__title {
+  font-family: var(--hecca-font-display);
+  font-weight: 700;
+  font-size: var(--hecca-h1-size);
+  letter-spacing: var(--hecca-h1-track);
+  line-height: var(--hecca-h1-leading);
+  text-transform: uppercase;
+  color: var(--hecca-white);
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.hecca-hero__sub {
+  font-family: var(--hecca-font-body);
+  font-size: var(--hecca-body-size);
+  line-height: var(--hecca-body-leading);
+  color: rgba(247, 247, 247, 0.85);
+  margin-bottom: 2rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hecca-hero__cta {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--hecca-gold);
+  color: var(--hecca-black);
+  font-family: var(--hecca-font-body);
+  font-weight: 700;
+  font-size: var(--hecca-label-size);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px -4px rgba(212, 166, 74, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.hecca-hero__cta:hover {
+  background: var(--hecca-gold-high);
+  box-shadow: 0 6px 16px -4px rgba(212, 166, 74, 0.5);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hecca-hero__media video { display: none; }
+}
+
+@media (max-width: 749px) {
+  .hecca-hero { height: 70vh; min-height: 400px; }
+  .hecca-hero__title { font-size: clamp(40px, 10vw, 64px); }
+}
+/* === END HERO === */
