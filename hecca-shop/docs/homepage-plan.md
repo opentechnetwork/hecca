@@ -141,6 +141,25 @@ CSS:
 - Plum/emerald hex values pending Heather's sign-off (currently `#5C2D5C` / `#1F5F4A`).
 - Footer credit line for Matthias Groeneveld (Pixabay video).
 
+## Handles pipeline (ready, not yet run)
+
+Script: `hecca-shop/scripts/handles.mjs` (committed `0e02298`).
+
+- Shopify does NOT auto-update handles when titles change. This script slugs each
+  title into a handle, plans old->new renames, and (on --apply) creates 301
+  redirects `/products/old` -> `/products/new`.
+- Scope: products only. No prefix/suffix. Idempotent.
+- Commands: default = dry run (plan only); `--apply` = rename + redirects;
+  `--verify` = list out-of-sync products + collisions.
+- Last --verify (2026-10-26): 88 products, 68 in sync, 20 out of sync, 0 collisions.
+- Report: `reports/handles.json` (git-ignored).
+
+Workflow when titles are final:
+1. Finish editing product titles.
+2. `node scripts/handles.mjs --verify` -> review.
+3. Default dry run -> eyeball mapping + report.
+4. `--apply` -> renames + redirects. Re-running is safe.
+
 ## How to use this file later
 
 In any future session, say "read the homepage plan" or point at `hecca-shop/docs/homepage-plan.md` and the full section order + code blocks above will be available.
