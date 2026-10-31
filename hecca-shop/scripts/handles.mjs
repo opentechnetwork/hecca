@@ -12,6 +12,14 @@
 // Scope: products only (not collections). Handles are slugs of the title with
 // no prefix or suffix. Idempotent: products already in sync are skipped;
 // redirects that already exist are skipped.
+//
+// NOTE on redirects: creating URL redirects via the API requires the
+// `write_online_store_navigation` scope. If the app token does not have it
+// (current default scopes do not), redirects cannot be created by this script.
+// In that case the script records the needed redirects to
+// reports/handle-redirects.csv so they can be imported in the Shopify admin
+// (Online Store -> Navigation -> URL Redirects -> Import), or you can add the
+// scope to the app and re-run. Renaming handles still works either way.
 import { writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -20,6 +28,7 @@ import { graphql } from "./shopify.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 const REPORT = join(root, "reports", "handles.json");
+const REDIRECT_CSV = join(root, "reports", "handle-redirects.csv");
 
 const APPLY = process.argv.includes("--apply");
 const VERIFY = process.argv.includes("--verify");
@@ -91,6 +100,8 @@ function alreadySynced(r) {
   return r.oldHandle === r.newHandle && !r.collision;
 }
 
+const pendingRedirects = [];
+
 async function applyOne(r) {
   const u = await graphql(UPDATE, { product: { id: r.id, handle: r.newHandle } });
   const uerrs = u.productUpdate.userErrors;
@@ -99,19 +110,41 @@ async function applyOne(r) {
   }
   const liveHandle = u.productUpdate.product.handle;
   if (r.oldHandle !== liveHandle) {
-    const red = await graphql(REDIRECT, {
-      urlRedirect: { path: `/products/${r.oldHandle}`, target: `/products/${liveHandle}` },
-    });
-    const rerrs = red.urlRedirectCreate.userErrors;
-    const alreadyExists = rerrs?.some((e) =>
-      /taken|exists|already/i.test((e.message || "") + " " + (e.field || []).join(" ")),
-    );
-    if (rerrs?.length && !alreadyExists) {
-      return { ok: false, step: "redirect", errors: rerrs, handle: liveHandle };
+    let redirectStatus = "created";
+    try {
+      const red = await graphql(REDIRECT, {
+        urlRedirect: { path: `/products/${r.oldHandle}`, target: `/products/${liveHandle}` },
+      });
+      const rerrs = red.urlRedirectCreate.userErrors;
+      const alreadyExists = rerrs?.some((e) =>
+        /taken|exists|already/i.test((e.message || "") + " " + (e.field || []).join(" ")),
+      );
+      if (rerrs?.length && !alreadyExists) {
+        // record for manual import
+        pendingRedirects.push({ from: `/products/${r.oldHandle}`, to: `/products/${liveHandle}` });
+        return { ok: true, handle: liveHandle, redirect: `pending (redirect failed: ${rerrs.map((e) => e.message).join("; ")})` };
+      }
+      redirectStatus = alreadyExists ? "already existed" : "created";
+    } catch (e) {
+      const msg = String(e.message || "");
+      if (/ACCESS_DENIED|write_online_store_navigation/i.test(msg)) {
+        pendingRedirects.push({ from: `/products/${r.oldHandle}`, to: `/products/${liveHandle}` });
+        return { ok: true, handle: liveHandle, redirect: "pending (scope missing - see handle-redirects.csv)" };
+      }
+      pendingRedirects.push({ from: `/products/${r.oldHandle}`, to: `/products/${liveHandle}` });
+      return { ok: false, step: "redirect", errors: [{ message: msg }], handle: liveHandle };
     }
-    return { ok: true, handle: liveHandle, redirect: alreadyExists ? "already existed" : "created" };
+    return { ok: true, handle: liveHandle, redirect: redirectStatus };
   }
   return { ok: true, handle: liveHandle, redirect: "n/a (same handle)" };
+}
+
+function writeRedirectCsv(list) {
+  if (!list.length) return;
+  mkdirSync(join(root, "reports"), { recursive: true });
+  const lines = ["Redirect from,Redirect to"];
+  for (const r of list) lines.push(`${r.from},${r.to}`);
+  writeFileSync(REDIRECT_CSV, lines.join("\n") + "\n", "utf8");
 }
 
 async function main() {
@@ -167,10 +200,14 @@ async function main() {
   console.log("");
 
   if (!APPLY) {
-    console.log("Dry run - no writes. Re-run with --apply to rename handles and create redirects.");
+    console.log("Dry run - no writes. Re-run with --apply to rename handles (+ redirects).");
     writeReport(rows, []);
     return;
   }
+
+  console.log("NOTE: redirect creation needs the `write_online_store_navigation` scope.");
+  console.log("      If it is missing, redirects are recorded to reports/handle-redirects.csv");
+  console.log("      for manual import in the Shopify admin.\n");
 
   const pending = [...toRename];
   const results = [];
@@ -208,6 +245,14 @@ async function main() {
     results.push(...pending.map((r) => ({ ...r, ok: false, step: "blocked", errors: [{ message: "target handle occupied" }] })));
   }
 
+  if (pendingRedirects.length) {
+    writeRedirectCsv(pendingRedirects);
+    console.log(`\n${pendingRedirects.length} redirect(s) could not be created via API.`);
+    console.log("Recorded to reports/handle-redirects.csv for manual import:");
+    console.log("  Shopify admin -> Online Store -> Navigation -> URL Redirects -> Import");
+    console.log("  (CSV columns: 'Redirect from,Redirect to')");
+  }
+
   const ok = results.filter((r) => r.ok).length;
   const fail = results.length - ok;
   console.log(`\nDone: ${ok} renamed, ${fail} failed/blocked.`);
@@ -221,6 +266,7 @@ function writeReport(rows, results) {
     inSync: rows.filter(alreadySynced).length,
     toRename: rows.filter((r) => !alreadySynced(r) && !r.collision).length,
     collisions: rows.filter((r) => r.collision).length,
+    pendingRedirects,
     rows,
     results,
   };
